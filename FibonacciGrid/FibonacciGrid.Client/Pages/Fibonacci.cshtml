@@ -1,41 +1,35 @@
 ﻿@page "/fibonacci-grid"
+@using FibonacciGrid.Client.Models
 
 <h1>Fibonacci Grid</h1>
 
-<p>@fibonacciDisplay</p>
-
-<button class="btn btn-primary" onclick=@( () => CalculateFibonacciRange(10))>Calculate Fibonnaci</button>
+@if (_fibonacciGrid.FibonacciGrid == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table>
+        <tbody>
+            @for (var i = 0; i < _fibonacciGrid.FibonacciGrid.GetLength(0); i++)
+            {
+                <tr>
+                    @for (var j = 0; j < _fibonacciGrid.FibonacciGrid.GetLength(1); j++)
+                    {
+                        <td>@_fibonacciGrid.FibonacciGrid[i, j].Value</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @functions {
 
-    string fibonacciDisplay
+    Grid _fibonacciGrid;
+
+    protected override void OnInit()
     {
-        get
-        {
-            return string.Join(", ", fibonacciRange);
-        }
-    }
-
-    int[] fibonacciRange = new int[10];
-
-    void CalculateFibonacciRange(int length)
-    {
-        var a = 0;
-        var b = 1;
-        var total = 0;
-
-        fibonacciRange = new int[length];
-
-        fibonacciRange[0] = a;
-        fibonacciRange[1] = b;
-
-        for (int i = 2; i < length; i++)
-        {
-            total = a + b;
-            fibonacciRange[i] = total;
-
-            a = b;
-            b = total;
-        }
+        _fibonacciGrid = new Grid(50);
     }
 }
