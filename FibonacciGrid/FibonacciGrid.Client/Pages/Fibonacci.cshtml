@@ -9,14 +9,14 @@
 }
 else
 {
-    <table>
+    <table class="fibonacci-table">
         <tbody>
             @for (var i = 0; i < _fibonacciGrid.FibonacciGrid.GetLength(0); i++)
             {
                 <tr>
                     @for (var j = 0; j < _fibonacciGrid.FibonacciGrid.GetLength(1); j++)
                     {
-                        <td>@_fibonacciGrid.FibonacciGrid[i, j].Value</td>
+                        <td class="fibonacci-td" data-value="@_fibonacciGrid.FibonacciGrid[i, j].Value"></td>
                     }
                 </tr>
             }
