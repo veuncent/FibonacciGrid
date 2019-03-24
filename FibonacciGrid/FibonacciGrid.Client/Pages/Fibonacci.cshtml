@@ -1,5 +1,41 @@
 ﻿@page "/fibonacci-grid"
 
 <h1>Fibonacci Grid</h1>
-@{
+
+<p>@fibonacciDisplay</p>
+
+<button class="btn btn-primary" onclick=@( () => CalculateFibonacciRange(10))>Calculate Fibonnaci</button>
+
+@functions {
+
+    string fibonacciDisplay
+    {
+        get
+        {
+            return string.Join(", ", fibonacciRange);
+        }
+    }
+
+    int[] fibonacciRange = new int[10];
+
+    void CalculateFibonacciRange(int length)
+    {
+        var a = 0;
+        var b = 1;
+        var total = 0;
+
+        fibonacciRange = new int[length];
+
+        fibonacciRange[0] = a;
+        fibonacciRange[1] = b;
+
+        for (int i = 2; i < length; i++)
+        {
+            total = a + b;
+            fibonacciRange[i] = total;
+
+            a = b;
+            b = total;
+        }
+    }
 }
