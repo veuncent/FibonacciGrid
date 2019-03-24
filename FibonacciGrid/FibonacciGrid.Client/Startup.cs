@@ -9,6 +9,7 @@ namespace FibonacciGrid.Client
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IFibonacciCheckerService, FibonacciCheckerService>();
+            services.AddSingleton<IGridCellUpdaterService, GridCellUpdaterService>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)
