@@ -1,14 +1,24 @@
-﻿namespace FibonacciGrid.Client.Models
+﻿using FibonacciGrid.Client.Services;
+
+namespace FibonacciGrid.Client.Models
 {
     public class GridCell
     {
-        public int Value { get; private set; }
+        private readonly IFibonacciCheckerService _fibonacciCheckerService;
 
+        public int Value { get; private set; }
         public bool IsFibonacci { get; private set; } = true;
 
-        public void SetGridCellValue(int value, bool isFibonacci)
+        public GridCell(IFibonacciCheckerService fibonacciCheckerService)
         {
-            Value = value;
+            _fibonacciCheckerService = fibonacciCheckerService;
+        }
+
+        public void IncrementGridCellValue(int increment)
+        {
+            var isFibonacci = _fibonacciCheckerService.IsFibonacci(increment);
+
+            Value += increment;
             IsFibonacci = isFibonacci;
         }
     }

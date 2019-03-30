@@ -2,6 +2,7 @@
 using FibonacciGrid.Client.Models;
 using NUnit.Framework;
 using System.Diagnostics;
+using FibonacciGrid.Client.Services;
 
 namespace FibonacciGrid.Client.Tests.Models
 {
@@ -10,16 +11,19 @@ namespace FibonacciGrid.Client.Tests.Models
         [Test]
         public void Given_Grid_When_ConstructingObject_Expect_InitializedTwoDimensionalArray()
         {
+            // Arrange
+            var fibonacciService = new FibonacciCheckerService();
+
             // Act
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            var grid = new Grid(50);
+            var grid = new Grid(fibonacciService, 50);
             stopwatch.Stop();
 
             Console.WriteLine(stopwatch.Elapsed);
 
             stopwatch.Start();
-            var gridList = new GridList(50);
+            var gridList = new GridList(fibonacciService, 50);
             stopwatch.Stop();
 
             Console.WriteLine(stopwatch.Elapsed);

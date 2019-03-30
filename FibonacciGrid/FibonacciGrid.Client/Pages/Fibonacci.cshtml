@@ -1,6 +1,7 @@
 ﻿@page "/fibonacci-grid"
 @using FibonacciGrid.Client.Models
 @inject Services.IGridCellUpdaterService GridCellUpdaterService
+@inject Services.IFibonacciCheckerService FibonacciCheckerService
 
 <h1>Fibonacci Grid</h1>
 
@@ -40,15 +41,12 @@ else
 
     protected override void OnInit()
     {
-        _fibonacciGrid = new Grid(50);
+        _fibonacciGrid = new Grid(FibonacciCheckerService, 50);
     }
 
     void PlusOne(int row, int column)
     {
-        foreach (var cell in _fibonacciGrid.FibonacciGrid)
-        {
-            var newValue = (cell.Value + 1) * 2;
-            GridCellUpdaterService.UpdateCell(cell, newValue);
-        }
+        const int increment = 1;
+        GridCellUpdaterService.UpdateCell(_fibonacciGrid, increment, row, column);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FibonacciGrid.Client.Services;
 
 namespace FibonacciGrid.Client.Models
 {
@@ -6,7 +7,7 @@ namespace FibonacciGrid.Client.Models
     {
         public GridCell[,] FibonacciGrid { get; }
 
-        public Grid(int gridSize = 50)
+        public Grid(IFibonacciCheckerService fibonacciCheckerService, int gridSize = 50)
         {
             FibonacciGrid = new GridCell[gridSize, gridSize];
 
@@ -14,7 +15,7 @@ namespace FibonacciGrid.Client.Models
             {
                 for (var j = 0; j < gridSize; j++)
                 {
-                    FibonacciGrid[i, j] = new GridCell();
+                    FibonacciGrid[i, j] = new GridCell(fibonacciCheckerService);
                 }
             }
         }
@@ -24,7 +25,7 @@ namespace FibonacciGrid.Client.Models
     {
         public List<List<GridCell>> FibonacciGrid { get; }
 
-        public GridList(int gridSize = 50)
+        public GridList(IFibonacciCheckerService fibonacciCheckerService, int gridSize = 50)
         {
             FibonacciGrid = new List<List<GridCell>>(50);
 
@@ -34,7 +35,7 @@ namespace FibonacciGrid.Client.Models
 
                 for (var j = 0; j < gridSize; j++)
                 {
-                    FibonacciGrid[i].Add(new GridCell());
+                    FibonacciGrid[i].Add(new GridCell(fibonacciCheckerService));
                 }
             }
         }

@@ -5,6 +5,6 @@ namespace FibonacciGrid.Client.Services
 {
     public interface IGridCellUpdaterService
     {
-        void UpdateCell(GridCell gridCell, int value);
+        List<GridCell> UpdateCell(Grid grid, int increment, int rowIndex, int columnIndex);
     }
 }
