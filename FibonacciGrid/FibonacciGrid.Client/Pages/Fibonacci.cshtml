@@ -13,10 +13,18 @@ else
         <tbody>
             @for (var i = 0; i < _fibonacciGrid.FibonacciGrid.GetLength(0); i++)
             {
+                var row = i;
+
                 <tr>
                     @for (var j = 0; j < _fibonacciGrid.FibonacciGrid.GetLength(1); j++)
                     {
-                        <td class="fibonacci-td" data-value="@_fibonacciGrid.FibonacciGrid[i, j].Value"></td>
+                        var column = j;
+
+                        <td class="fibonacci-td" data-value="@_fibonacciGrid.FibonacciGrid[i, j].Value">
+                            <a onclick="@(() => PlusOne(row, column))">
+                                <span class="cell-fill"></span>
+                            </a>
+                        </td>
                     }
                 </tr>
             }
