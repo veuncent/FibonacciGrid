@@ -108,10 +108,11 @@ app {
 }
 
     .fibonacci-td:before {
-        content: "";
+        content: '';
         display: block;
         padding-top: 100%;
         float: left;
+
     }
 
     .fibonacci-td:after {
@@ -119,8 +120,45 @@ app {
     }
 
     .fibonacci-td[data-value="0"]:after {
-        content: "";
+        content: '';
     }
+
+    /* Hightlight clicked cells*/
+    .fibonacci-td:active::after {
+        content: '';
+        height: 10000px;
+        left: 0;
+        position: absolute;
+        top: -5000px;
+        width: 100%;
+        z-index: -1;
+        animation: animateYellow 3s;
+        -webkit-animation: animateYellow 3s; /* Browser compatibility */
+    }
+
+    /* Hightlight clicked cells*/
+    .fibonacci-td:active::before {
+        content: '';
+        height: 100%;
+        top: 0;
+        left: -5000px;
+        position: absolute;
+        width: 10000px;
+        z-index: -1;
+        animation: animateYellow 3s;
+        -webkit-animation: animateYellow 3s; /* Browser compatibility */
+    }
+
+@keyframes animateYellow {
+    from    { background: yellow; }
+    to      { background: white; }
+}
+
+@-webkit-keyframes animateYellow /* Browser compatibility */
+{
+    from    { background: yellow; }
+    to      { background: white; }
+}
 
 .cell-fill {
     position: absolute;
