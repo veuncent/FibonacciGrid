@@ -8,65 +8,68 @@ namespace FibonacciGrid.Client.Services
     {
         private const int FibonacciSequenceMinimum = 5;
 
-        public List<List<Tuple<int, int>>> FindNeighbors(Grid grid, List<Tuple<int, int>> cellsToCheck)
+        public List<List<GridCell>> FindNeighbors(Grid grid, List<Tuple<int, int>> cellsToCheck)
         {
-            var groupedFibonacciCells = new List<List<Tuple<int, int>>>();
+            var groupedFibonacciCells = new List<List<GridCell>>();
             foreach (var (rowIndex, columnIndex) in cellsToCheck)
             {
-                var neighboringFibonacciCells = GetNeighboringFibonacciCells(grid, rowIndex, columnIndex);
-                if (neighboringFibonacciCells.Count >= FibonacciSequenceMinimum)
-                {
-                    groupedFibonacciCells.Add(neighboringFibonacciCells);
-                }
+                GetNeighboringFibonacciCells(grid, rowIndex, columnIndex, groupedFibonacciCells);
             }
 
             return groupedFibonacciCells;
         }
 
-        private static List<Tuple<int, int>> GetNeighboringFibonacciCells(Grid grid, int rowIndex, int columnIndex)
+        private static void GetNeighboringFibonacciCells(Grid grid, int initialRow, int initialColumn, ICollection<List<GridCell>> groupedFibonacciCells)
         {
-            var fibonacciCells = new List<Tuple<int, int>>();
-            for (var row = rowIndex; row < grid.FibonacciGrid.GetLength(0); row++)
+            var verticalNeighbors = new List<GridCell>();
+            for (var iteratedRow = initialRow -1; iteratedRow >= 0; iteratedRow--)
             {
-                if (!grid.FibonacciGrid[row, columnIndex].IsFibonacci)
-                {
-                    break;
-                }
+                if (AddCellOrBreak(grid, iteratedRow, initialColumn, verticalNeighbors)) break;
+            }
+            verticalNeighbors.Reverse();
 
-                fibonacciCells.Add(Tuple.Create(row, columnIndex));
+            for (var iteratedRow = initialRow; iteratedRow < grid.FibonacciGrid.GetLength(0); iteratedRow++)
+            {
+                if (AddCellOrBreak(grid, iteratedRow, initialColumn, verticalNeighbors)) break;
             }
 
-            for (var row = rowIndex -1; row >= 0; row--)
-            {
-                if (!grid.FibonacciGrid[row, columnIndex].IsFibonacci)
-                {
-                    break;
-                }
+            AddGroupedNeighbors(groupedFibonacciCells, verticalNeighbors);
 
-                fibonacciCells.Add(Tuple.Create(row, columnIndex));
+
+            var horizontalNeighbors = new List<GridCell>();
+            for (var iteratedColumn = initialColumn - 1; iteratedColumn >= 0; iteratedColumn--)
+            {
+                if (AddCellOrBreak(grid, initialRow, iteratedColumn, horizontalNeighbors)) break;
+            }
+            horizontalNeighbors.Reverse();
+
+            for (var iteratedColumn = initialColumn; iteratedColumn < grid.FibonacciGrid.GetLength(1); iteratedColumn++)
+            {
+                if (AddCellOrBreak(grid, initialRow, iteratedColumn, horizontalNeighbors)) break;
             }
 
-            for (var column = columnIndex + 1; column < grid.FibonacciGrid.GetLength(1); column++)
-            {
-                if (!grid.FibonacciGrid[rowIndex, column].IsFibonacci)
-                {
-                    break;
-                }
+            AddGroupedNeighbors(groupedFibonacciCells, horizontalNeighbors);
+        }
 
-                fibonacciCells.Add(Tuple.Create(column, columnIndex));
+        private static bool AddCellOrBreak(Grid grid, int rowIndex, int columnIndex, ICollection<GridCell> fibonacciCells)
+        {
+            var gridCell = grid.FibonacciGrid[rowIndex, columnIndex];
+
+            if (!gridCell.IsFibonacci)
+            {
+                return true;
             }
 
-            for (var column = columnIndex - 1; column >= 0; column--)
+            fibonacciCells.Add(gridCell);
+            return false;
+        }
+
+        private static void AddGroupedNeighbors(ICollection<List<GridCell>> groupedFibonacciCells, List<GridCell> neighborCells)
+        {
+            if (neighborCells.Count >= FibonacciSequenceMinimum)
             {
-                if (!grid.FibonacciGrid[rowIndex, column].IsFibonacci)
-                {
-                    break;
-                }
-
-                fibonacciCells.Add(Tuple.Create(rowIndex, column));
+                groupedFibonacciCells.Add(neighborCells);
             }
-
-            return fibonacciCells;
         }
     }
 }

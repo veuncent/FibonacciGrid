@@ -6,6 +6,6 @@ namespace FibonacciGrid.Client.Services
 {
     public interface IFibonacciNeighborService
     {
-        List<List<Tuple<int, int>>> FindNeighbors(Grid grid, List<Tuple<int, int>> cellsToCheck);
+        List<List<GridCell>> FindNeighbors(Grid grid, List<Tuple<int, int>> cellsToCheck);
     }
 }
