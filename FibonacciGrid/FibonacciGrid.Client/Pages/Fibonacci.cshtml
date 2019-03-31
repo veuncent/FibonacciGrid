@@ -2,6 +2,7 @@
 @using FibonacciGrid.Client.Models
 @inject Services.IGridCellUpdaterService GridCellUpdaterService
 @inject Services.IFibonacciCheckerService FibonacciCheckerService
+@inject Services.IFibonacciNeighborService FibonacciNeighborService
 
 <h1>Fibonacci Grid</h1>
 
@@ -47,6 +48,7 @@ else
     void PlusOne(int row, int column)
     {
         const int increment = 1;
-        GridCellUpdaterService.UpdateCell(_fibonacciGrid, increment, row, column);
+        var fibonacciCells = GridCellUpdaterService.UpdateCell(_fibonacciGrid, increment, row, column);
+        var fibonacciNeighbors = FibonacciNeighborService.FindNeighbors(_fibonacciGrid, fibonacciCells);
     }
 }
