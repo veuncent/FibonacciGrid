@@ -107,11 +107,5 @@ namespace FibonacciGrid.Client.Tests.Services
 
             Assert.AreEqual(5, fibonacciSequences.SelectMany(sequence => sequence).Count());
         }
-
-        private static List<Tuple<int, int>> IncrementCell(IGridCellUpdaterService gridCellUpdaterService, Grid grid, int rowIndex,
-            int columnIndex, int increment)
-        {
-            return gridCellUpdaterService.UpdateCell(grid, increment, rowIndex, columnIndex);
-        }
     }
 }
