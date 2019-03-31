@@ -19,7 +19,9 @@ namespace FibonacciGrid.Client.Services
             var fibonacciCells = new List<Tuple<int, int>>();
             for (var row = 0; row < grid.FibonacciGrid.GetLength(0); row++)
             {
-                IncrementCellValue(increment, grid.FibonacciGrid[row, columnIndex], row, columnIndex, fibonacciCells);
+                var gridCell = grid.FibonacciGrid[row, columnIndex];
+                IncrementCellValue(increment, gridCell);
+                AddFibonacciCell(gridCell, row, columnIndex, fibonacciCells);
             }
 
             for (var column = 0; column < grid.FibonacciGrid.GetLength(1); column++)
@@ -29,16 +31,21 @@ namespace FibonacciGrid.Client.Services
                     continue;
                 }
 
-                IncrementCellValue(increment, grid.FibonacciGrid[rowIndex, column], rowIndex, column, fibonacciCells);
+                var gridCell = grid.FibonacciGrid[rowIndex, column];
+                IncrementCellValue(increment, gridCell);
+                AddFibonacciCell(gridCell, rowIndex, column, fibonacciCells);
             }
 
             return fibonacciCells;
         }
 
-        private static void IncrementCellValue(int increment, GridCell gridCell, int rowIndex, int columnIndex, ICollection<Tuple<int, int>> fibonacciCells)
+        private static void IncrementCellValue(int increment, GridCell gridCell)
         {
             gridCell.IncrementGridCellValue(increment);
+        }
 
+        private static void AddFibonacciCell(GridCell gridCell, int rowIndex, int columnIndex, ICollection<Tuple<int, int>> fibonacciCells)
+        {
             if (gridCell.IsFibonacci)
             {
                 fibonacciCells.Add(Tuple.Create(rowIndex, columnIndex));
