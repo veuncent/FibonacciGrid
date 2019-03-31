@@ -6,12 +6,18 @@ namespace FibonacciGrid.Client.Services
 {
     public class FibonacciNeighborService : IFibonacciNeighborService
     {
+        private const int FibonacciSequenceMinimum = 5;
+
         public List<List<Tuple<int, int>>> FindNeighbors(Grid grid, List<Tuple<int, int>> cellsToCheck)
         {
             var groupedFibonacciCells = new List<List<Tuple<int, int>>>();
             foreach (var (rowIndex, columnIndex) in cellsToCheck)
             {
-                groupedFibonacciCells.Add(GetNeighboringFibonacciCells(grid, rowIndex, columnIndex));
+                var neighboringFibonacciCells = GetNeighboringFibonacciCells(grid, rowIndex, columnIndex);
+                if (neighboringFibonacciCells.Count >= FibonacciSequenceMinimum)
+                {
+                    groupedFibonacciCells.Add(neighboringFibonacciCells);
+                }
             }
 
             return groupedFibonacciCells;

@@ -7,6 +7,7 @@ namespace FibonacciGrid.Client.Services
 {
     public class FibonacciSequenceService : IFibonacciSequenceService
     {
+        private const int FibonacciSequenceMinimum = 5;
         private readonly double _phi = (1 + Math.Sqrt(5)) / 2;
 
         public List<List<Tuple<int, int>>> FindFibonacciSequences(Grid grid, List<List<Tuple<int, int>>> groupedFibonacciCells)
@@ -47,10 +48,11 @@ namespace FibonacciGrid.Client.Services
                 }
                 else
                 {
-                    if (fibonacciSequenceTempList.Count >= 5)
+                    if (fibonacciSequenceTempList.Count >= FibonacciSequenceMinimum)
                     {
                         fibonacciSequence.AddRange(fibonacciSequenceTempList);
                     }
+
                     fibonacciSequenceTempList.Clear();
                 }
             }
