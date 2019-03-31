@@ -160,6 +160,17 @@ app {
     to      { background: white; }
 }
 
+@keyframes animateGreen {
+    from    { background: green; }
+    to      { background: white; }
+}
+
+@-webkit-keyframes animateGreen /* Browser compatibility */
+{
+    from    { background: green; }
+    to      { background: white; }
+}
+
 .cell-fill {
     position: absolute;
     width: 100%;

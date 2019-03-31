@@ -22,8 +22,9 @@ else
                     @for (var j = 0; j < _fibonacciGrid.FibonacciGrid.GetLength(1); j++)
                     {
                         var column = j;
+                        var gridCel = _fibonacciGrid.FibonacciGrid[i, j];
 
-                        <td class="fibonacci-td" data-value="@_fibonacciGrid.FibonacciGrid[i, j].Value">
+                        <td class="fibonacci-td" data-value="@gridCel.Value" style="animation: @((gridCel.IsSequentialFibonacci ? "animateGreen 3s" : ""));">
                             <a onclick="@(() => PlusOne(row, column))">
                                 <span class="cell-fill"></span>
                             </a>
