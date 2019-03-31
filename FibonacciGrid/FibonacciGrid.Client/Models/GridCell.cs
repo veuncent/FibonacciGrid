@@ -8,6 +8,7 @@ namespace FibonacciGrid.Client.Models
 
         public int Value { get; private set; }
         public bool IsFibonacci { get; private set; } = true;
+        public bool IsSequentialFibonacci { get; private set; }
 
         public GridCell(IFibonacciCheckerService fibonacciCheckerService)
         {
@@ -20,6 +21,10 @@ namespace FibonacciGrid.Client.Models
 
             Value += increment;
             IsFibonacci = isFibonacci;
+
+        public void SetAsSequentialFibonacci()
+        {
+            IsSequentialFibonacci = true;
         }
     }
 }

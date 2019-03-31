@@ -3,6 +3,7 @@
 @inject Services.IGridCellUpdaterService GridCellUpdaterService
 @inject Services.IFibonacciCheckerService FibonacciCheckerService
 @inject Services.IFibonacciNeighborService FibonacciNeighborService
+@inject Services.IFibonacciSequenceService FibonacciSequenceService
 
 <h1>Fibonacci Grid</h1>
 
@@ -51,5 +52,10 @@ else
         const int increment = 1;
         var fibonacciCells = GridCellUpdaterService.UpdateCell(_fibonacciGrid, increment, row, column);
         var fibonacciNeighbors = FibonacciNeighborService.FindNeighbors(_fibonacciGrid, fibonacciCells);
+        var fibonacciSequences = FibonacciSequenceService.FindFibonacciSequences(fibonacciNeighbors);
+
+        fibonacciSequences.ForEach(fibonacciSequence => 
+            fibonacciSequence.ForEach(gridCell => 
+                gridCell.SetAsSequentialFibonacci()));
     }
 }
