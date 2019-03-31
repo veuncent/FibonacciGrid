@@ -1,4 +1,5 @@
 ﻿@page "/fibonacci-grid"
+@using System.Threading
 @using FibonacciGrid.Client.Models
 @inject Services.IGridCellUpdaterService GridCellUpdaterService
 @inject Services.IFibonacciCheckerService FibonacciCheckerService
@@ -54,8 +55,25 @@ else
         var fibonacciNeighbors = FibonacciNeighborService.FindNeighbors(_fibonacciGrid, fibonacciCells);
         var fibonacciSequences = FibonacciSequenceService.FindFibonacciSequences(fibonacciNeighbors);
 
-        fibonacciSequences.ForEach(fibonacciSequence => 
-            fibonacciSequence.ForEach(gridCell => 
+        fibonacciSequences.ForEach(fibonacciSequence =>
+            fibonacciSequence.ForEach(gridCell =>
                 gridCell.SetAsSequentialFibonacci()));
+
+        StateHasChanged();
+
+        Task.Run(() =>
+        {
+            Thread.Sleep(1000);
+
+            foreach (var fibonacciSequence in fibonacciSequences)
+            {
+                foreach (var gridCell in fibonacciSequence)
+                {
+
+                    gridCell.ResetValue();
+                }
+            }
+            StateHasChanged();
+        });
     }
 }

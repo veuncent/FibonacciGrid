@@ -17,10 +17,16 @@ namespace FibonacciGrid.Client.Models
 
         public void IncrementGridCellValue(int increment)
         {
-            var isFibonacci = _fibonacciCheckerService.IsFibonacci(increment);
-
             Value += increment;
-            IsFibonacci = isFibonacci;
+            IsFibonacci = _fibonacciCheckerService.IsFibonacci(Value);
+        }
+
+        public void ResetValue()
+        {
+            Value = 0;
+            IsFibonacci = true;
+            IsSequentialFibonacci = false;
+        }
 
         public void SetAsSequentialFibonacci()
         {
