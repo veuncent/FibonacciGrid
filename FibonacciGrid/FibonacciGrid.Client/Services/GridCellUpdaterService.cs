@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FibonacciGrid.Client.Models;
 
 namespace FibonacciGrid.Client.Services
@@ -12,37 +13,41 @@ namespace FibonacciGrid.Client.Services
         /// <param name="increment">The amount with which to increment all affected cells</param>
         /// <param name="rowIndex">The row index of the selected cell</param>
         /// <param name="columnIndex">The column index of the selected cell</param>
-        /// <returns>Returns a list of all cells that have a Fibonacci value after updating</returns>
-        public List<GridCell> UpdateCell(Grid grid, int increment, int rowIndex, int columnIndex)
+        /// <returns>Returns a list of all cells that have a Fibonacci value after updating. Coordinates of each cell are stored in a Tuple</returns>
+        public List<Tuple<int, int>> UpdateCell(Grid grid, int increment, int rowIndex, int columnIndex)
         {
-            var affectedCells = new List<GridCell>();
+            var fibonacciCells = new List<Tuple<int, int>>();
             for (var row = 0; row < grid.FibonacciGrid.GetLength(0); row++)
             {
-                affectedCells.Add(grid.FibonacciGrid[row, columnIndex]);
+                IncrementCellValue(increment, grid.FibonacciGrid[row, columnIndex], row, columnIndex, fibonacciCells);
             }
 
             for (var column = 0; column < grid.FibonacciGrid.GetLength(1); column++)
             {
-                if (column != columnIndex)
+                if (IsAlreadyProcessed(column, columnIndex))
                 {
-                    affectedCells.Add(grid.FibonacciGrid[rowIndex, column]);
+                    continue;
                 }
-            }
 
-            var fibonacciCells = new List<GridCell>();
-            foreach (var gridCell in affectedCells)
-            {
-                gridCell.IncrementGridCellValue(increment);
-
-                if (gridCell.IsFibonacci)
-                {
-                    fibonacciCells.Add(gridCell);
-                }
+                IncrementCellValue(increment, grid.FibonacciGrid[rowIndex, column], rowIndex, column, fibonacciCells);
             }
 
             return fibonacciCells;
         }
 
+        private static void IncrementCellValue(int increment, GridCell gridCell, int rowIndex, int columnIndex, ICollection<Tuple<int, int>> fibonacciCells)
+        {
+            gridCell.IncrementGridCellValue(increment);
 
+            if (gridCell.IsFibonacci)
+            {
+                fibonacciCells.Add(Tuple.Create(rowIndex, columnIndex));
+            }
+        }
+
+        private static bool IsAlreadyProcessed(int column, int columnIndex)
+        {
+            return column == columnIndex;
+        }
     }
 }
