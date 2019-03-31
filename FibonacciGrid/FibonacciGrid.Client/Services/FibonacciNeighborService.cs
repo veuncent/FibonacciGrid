@@ -46,7 +46,7 @@ namespace FibonacciGrid.Client.Services
                 fibonacciCells.Add(Tuple.Create(row, columnIndex));
             }
 
-            for (var column = columnIndex; column < grid.FibonacciGrid.GetLength(1); column++)
+            for (var column = columnIndex + 1; column < grid.FibonacciGrid.GetLength(1); column++)
             {
                 if (!grid.FibonacciGrid[rowIndex, column].IsFibonacci)
                 {
@@ -56,7 +56,7 @@ namespace FibonacciGrid.Client.Services
                 fibonacciCells.Add(Tuple.Create(column, columnIndex));
             }
 
-            for (var column = rowIndex - 1; column >= 0; column--)
+            for (var column = columnIndex - 1; column >= 0; column--)
             {
                 if (!grid.FibonacciGrid[rowIndex, column].IsFibonacci)
                 {
