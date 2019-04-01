@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using FibonacciGrid.Client.Models;
 using FibonacciGrid.Client.Services;
 using Moq;
@@ -11,7 +9,7 @@ namespace FibonacciGrid.Client.Tests.Benchmarks
 {
     public class BenchmarkGridList
     {
-        [Test]
+        [Test, Category("Benchmark")]
         public void BenchmarkMultiDimensionalArray()
         {
             // Arrange
@@ -26,7 +24,7 @@ namespace FibonacciGrid.Client.Tests.Benchmarks
             Console.WriteLine(stopwatch.Elapsed);
         }
 
-        [Test]
+        [Test, Category("Benchmark")]
         public void BenchmarkListInList()
         {
             // Arrange

@@ -91,11 +91,13 @@ namespace FibonacciGrid.Client.Tests.Integration
         [Test]
         public void Given_Grid_When_IncrementingCellsToAFibonacciSequence_Expect_FiveGridCellsInList()
         {
+            // Arrange
             var grid = new Grid(new FibonacciCheckerService());
             var gridCellUpdaterService = new GridCellUpdaterService();
             var fibonacciNeighborService = new FibonacciNeighborService();
             var fibonacciSequenceService = new FibonacciSequenceService();
 
+            // Act
             gridCellUpdaterService.UpdateCell(grid, 1, 25, 25);
             gridCellUpdaterService.UpdateCell(grid, 1, 26, 27);
             gridCellUpdaterService.UpdateCell(grid, 2, 26, 28);
@@ -104,7 +106,7 @@ namespace FibonacciGrid.Client.Tests.Integration
             var fibonacciNeighbors = fibonacciNeighborService.FindNeighbors(grid, fibonacciCells);
             var fibonacciSequences = fibonacciSequenceService.FindFibonacciSequences(fibonacciNeighbors);
 
-
+            // Assert
             Assert.AreEqual(5, fibonacciSequences.SelectMany(sequence => sequence).Count());
         }
     }
