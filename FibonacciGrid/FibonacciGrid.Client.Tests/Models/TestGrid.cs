@@ -3,6 +3,7 @@ using FibonacciGrid.Client.Models;
 using NUnit.Framework;
 using System.Diagnostics;
 using FibonacciGrid.Client.Services;
+using Moq;
 
 namespace FibonacciGrid.Client.Tests.Models
 {
@@ -12,21 +13,11 @@ namespace FibonacciGrid.Client.Tests.Models
         public void Given_Grid_When_ConstructingObject_Expect_InitializedTwoDimensionalArray()
         {
             // Arrange
-            var fibonacciService = new FibonacciCheckerService();
+            var fibonacciCheckerService = Mock.Of<IFibonacciCheckerService>();
+            Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
 
             // Act
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-            var grid = new Grid(fibonacciService, 50);
-            stopwatch.Stop();
-
-            Console.WriteLine(stopwatch.Elapsed);
-
-            stopwatch.Start();
-            var gridList = new GridList(fibonacciService, 50);
-            stopwatch.Stop();
-
-            Console.WriteLine(stopwatch.Elapsed);
+            var grid = new Grid(fibonacciCheckerService, 50);
 
             // Assert
             Assert.AreEqual(50, grid.FibonacciGrid.GetLength(0));
