@@ -64,8 +64,6 @@ else
         sequenceCells.ForEach(gridCell =>
                 gridCell.SetAsSequentialFibonacci());
 
-        StateHasChanged();
-
         Task.Run(() =>
         {
             if (!sequenceCells.Any()) return;
@@ -74,8 +72,6 @@ else
 
             sequenceCells.ForEach(gridCell =>
                 gridCell.ResetValue());
-
-            StateHasChanged();
         });
     }
 }
