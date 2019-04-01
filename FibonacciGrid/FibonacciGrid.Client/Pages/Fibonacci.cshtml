@@ -26,11 +26,16 @@ else
                     {
                         var column = j;
                         var gridCel = _fibonacciGrid.FibonacciGrid[i, j];
+                        var highlightAnimation = gridCel.IsSequentialFibonacci ? "animateGreen 3s" : "";
 
-                        <td class="fibonacci-td" data-value="@gridCel.Value" style="animation: @((gridCel.IsSequentialFibonacci ? "animateGreen 3s" : ""));">
+                        <td class="fibonacci-td" data-value="@gridCel.Value"
+                            style="animation: @highlightAnimation;
+                                      -webkit-animation: @highlightAnimation;">
+
                             <a onclick="@(() => PlusOne(row, column))">
                                 <span class="cell-fill"></span>
                             </a>
+
                         </td>
                     }
                 </tr>
@@ -64,8 +69,8 @@ else
         Task.Run(() =>
         {
             if (!sequenceCells.Any()) return;
-            
-            Thread.Sleep(500);
+
+            Thread.Sleep(1000);
 
             sequenceCells.ForEach(gridCell =>
                 gridCell.ResetValue());
