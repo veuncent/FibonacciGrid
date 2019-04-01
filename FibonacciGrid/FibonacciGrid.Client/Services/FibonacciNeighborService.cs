@@ -8,6 +8,12 @@ namespace FibonacciGrid.Client.Services
     {
         private const int FibonacciSequenceMinimum = 5;
 
+        /// <summary>
+        /// Finds neighboring Fibonacci cells for each given cell
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <param name="cellsToCheck"></param>
+        /// <returns>List of neighboring Fibonacci cells grouped by cell from input</returns>
         public List<List<GridCell>> FindNeighbors(Grid grid, List<Tuple<int, int>> cellsToCheck)
         {
             var groupedFibonacciCells = new List<List<GridCell>>();

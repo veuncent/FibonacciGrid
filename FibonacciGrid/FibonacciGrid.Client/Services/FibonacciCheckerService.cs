@@ -8,6 +8,11 @@ namespace FibonacciGrid.Client.Services
         private readonly List<int> _cachedFibonacciList = new List<int>();
         private readonly List<int> _cachedNotFibonacciList = new List<int>();
 
+        /// <summary>
+        /// Checks if a giver number can be considered Fibonacci
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns>True of False</returns>
         public bool IsFibonacci(int number)
         {
             if (_cachedFibonacciList.Contains(number)) { return true; }
