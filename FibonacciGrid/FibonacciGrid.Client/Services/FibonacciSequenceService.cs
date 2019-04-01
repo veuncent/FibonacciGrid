@@ -10,15 +10,20 @@ namespace FibonacciGrid.Client.Services
         private const int FibonacciSequenceMinimum = 5;
         private readonly double _phi = (1 + Math.Sqrt(5)) / 2;
 
-        public List<List<GridCell>> FindFibonacciSequences(List<List<GridCell>> groupedFibonacciCells)
+        /// <summary>
+        /// Finds Fibonacci sequences in given list of neighboring Fibonacci cells
+        /// </summary>
+        /// <param name="groupedFibonacciCells">Each list in this list contains a group of neighboring Fibonacci cells</param>
+        /// <returns>Returns a list with all Fibonacci cells that are part of a sequence</returns>
+        public List<GridCell> FindFibonacciSequences(List<List<GridCell>> groupedFibonacciCells)
         {
-            var sequentialFibonacciCells = new List<List<GridCell>>();
+            var sequentialFibonacciCells = new List<GridCell>();
             foreach (var fibonacciCellGroup in groupedFibonacciCells)
             {
                 var sequentialCells = FindFibonacciSequence(fibonacciCellGroup);
                 if (sequentialCells.Count > 0)
                 {
-                    sequentialFibonacciCells.Add(sequentialCells);
+                    sequentialFibonacciCells.AddRange(sequentialCells);
                 }
             }
 

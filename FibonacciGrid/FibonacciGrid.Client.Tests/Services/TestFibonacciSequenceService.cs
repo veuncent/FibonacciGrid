@@ -29,13 +29,10 @@ namespace FibonacciGrid.Client.Tests.Services
             }
 
             // Act
-            var sequences = fibonacciSequenceService.FindFibonacciSequences(new List<List<GridCell>> { fibonacciCellList });
+            var sequenceCells = fibonacciSequenceService.FindFibonacciSequences(new List<List<GridCell>> { fibonacciCellList });
 
             // Assert
-            Assert.AreEqual(1, sequences.Count);
-
-            var sequence = sequences.First();
-            Assert.AreEqual(5, sequence.Count);
+            Assert.AreEqual(5, sequenceCells.Count);
         }
 
         [Test]
@@ -57,13 +54,10 @@ namespace FibonacciGrid.Client.Tests.Services
             }
 
             // Act
-            var sequences = fibonacciSequenceService.FindFibonacciSequences(new List<List<GridCell>> { fibonacciCellList });
+            var sequenceCells = fibonacciSequenceService.FindFibonacciSequences(new List<List<GridCell>> { fibonacciCellList });
 
             // Assert
-            Assert.AreEqual(1, sequences.Count);
-
-            var sequence = sequences.First();
-            Assert.AreEqual(5, sequence.Count);
+            Assert.AreEqual(5, sequenceCells.Count);
         }
 
         [Test]
@@ -85,13 +79,10 @@ namespace FibonacciGrid.Client.Tests.Services
             }
 
             // Act
-            var sequences = fibonacciSequenceService.FindFibonacciSequences(new List<List<GridCell>> { fibonacciCellList });
+            var sequenceCells = fibonacciSequenceService.FindFibonacciSequences(new List<List<GridCell>> { fibonacciCellList });
 
             // Assert
-            Assert.AreEqual(1, sequences.Count);
-
-            var sequence = sequences.First();
-            Assert.AreEqual(8, sequence.Count);
+            Assert.AreEqual(8, sequenceCells.Count);
         }
 
         [Test]
@@ -113,13 +104,10 @@ namespace FibonacciGrid.Client.Tests.Services
             }
 
             // Act
-            var sequences = fibonacciSequenceService.FindFibonacciSequences(new List<List<GridCell>> { fibonacciCellList });
+            var sequenceCells = fibonacciSequenceService.FindFibonacciSequences(new List<List<GridCell>> { fibonacciCellList });
 
             // Assert
-            Assert.AreEqual(1, sequences.Count);
-
-            var sequence = sequences.First();
-            Assert.AreEqual(5, sequence.Count);
+            Assert.AreEqual(5, sequenceCells.Count);
         }
 
         [Test]
@@ -141,13 +129,10 @@ namespace FibonacciGrid.Client.Tests.Services
             }
 
             // Act
-            var sequences = fibonacciSequenceService.FindFibonacciSequences(new List<List<GridCell>> { fibonacciCellList });
+            var sequenceCells = fibonacciSequenceService.FindFibonacciSequences(new List<List<GridCell>> { fibonacciCellList });
 
             // Assert
-            Assert.AreEqual(1, sequences.Count);
-
-            var sequence = sequences.First();
-            Assert.AreEqual(5, sequence.Count);
+            Assert.AreEqual(5, sequenceCells.Count);
         }
 
         [Test]
@@ -169,13 +154,10 @@ namespace FibonacciGrid.Client.Tests.Services
             }
 
             // Act
-            var sequences = fibonacciSequenceService.FindFibonacciSequences(new List<List<GridCell>> { fibonacciCellList });
+            var sequenceCells = fibonacciSequenceService.FindFibonacciSequences(new List<List<GridCell>> { fibonacciCellList });
 
             // Assert
-            Assert.AreEqual(1, sequences.Count);
-
-            var sequence = sequences.First();
-            Assert.AreEqual(5, sequence.Count);
+            Assert.AreEqual(5, sequenceCells.Count);
         }
 
         [Test]

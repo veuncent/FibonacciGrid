@@ -15,7 +15,7 @@ namespace FibonacciGrid.Client.Tests.Benchmarks
         {
             var fibonacciCheckerService = Mock.Of<IFibonacciCheckerService>();
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
-            var grid = new Grid(fibonacciCheckerService, 50);
+            var grid = new Grid(fibonacciCheckerService);
 
             var listTuple = new List<Tuple<int, int>>();
 
@@ -40,7 +40,7 @@ namespace FibonacciGrid.Client.Tests.Benchmarks
         {
             var fibonacciCheckerService = Mock.Of<IFibonacciCheckerService>();
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
-            var grid = new Grid(fibonacciCheckerService, 50);
+            var grid = new Grid(fibonacciCheckerService);
 
             var listList = new List<List<int>>();
 
@@ -65,7 +65,7 @@ namespace FibonacciGrid.Client.Tests.Benchmarks
         {
             var fibonacciCheckerService = Mock.Of<IFibonacciCheckerService>();
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
-            var grid = new Grid(fibonacciCheckerService, 50);
+            var grid = new Grid(fibonacciCheckerService);
 
             var listArray = new List<int[]>();
 

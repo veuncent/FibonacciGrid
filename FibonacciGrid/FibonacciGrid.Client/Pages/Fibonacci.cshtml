@@ -53,11 +53,10 @@ else
         const int increment = 1;
         var fibonacciCells = GridCellUpdaterService.UpdateCell(_fibonacciGrid, increment, row, column);
         var fibonacciNeighbors = FibonacciNeighborService.FindNeighbors(_fibonacciGrid, fibonacciCells);
-        var fibonacciSequences = FibonacciSequenceService.FindFibonacciSequences(fibonacciNeighbors);
+        var sequenceCells = FibonacciSequenceService.FindFibonacciSequences(fibonacciNeighbors);
 
-        fibonacciSequences.ForEach(fibonacciSequence =>
-            fibonacciSequence.ForEach(gridCell =>
-                gridCell.SetAsSequentialFibonacci()));
+        sequenceCells.ForEach(gridCell =>
+                gridCell.SetAsSequentialFibonacci());
 
         StateHasChanged();
 
@@ -65,14 +64,9 @@ else
         {
             Thread.Sleep(1000);
 
-            foreach (var fibonacciSequence in fibonacciSequences)
-            {
-                foreach (var gridCell in fibonacciSequence)
-                {
+            sequenceCells.ForEach(gridCell =>
+                gridCell.ResetValue());
 
-                    gridCell.ResetValue();
-                }
-            }
             StateHasChanged();
         });
     }

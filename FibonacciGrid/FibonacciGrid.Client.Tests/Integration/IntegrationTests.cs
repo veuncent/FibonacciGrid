@@ -82,10 +82,10 @@ namespace FibonacciGrid.Client.Tests.Integration
             // Act
             var fibonacciCells = gridCellUpdaterService.UpdateCell(grid, 1, rowIndex, columnIndex);
             var fibonacciNeighbors = fibonacciNeighborService.FindNeighbors(grid, fibonacciCells);
-            var fibonacciSequences = fibonacciSequenceService.FindFibonacciSequences(fibonacciNeighbors);
+            var sequenceCells = fibonacciSequenceService.FindFibonacciSequences(fibonacciNeighbors);
 
             // Assert
-            Assert.AreEqual(0, fibonacciSequences.SelectMany(sequence => sequence).Count());
+            Assert.AreEqual(0, sequenceCells.Count());
         }
 
         [Test]
@@ -104,10 +104,10 @@ namespace FibonacciGrid.Client.Tests.Integration
             var fibonacciCells = gridCellUpdaterService.UpdateCell(grid, 4, 26, 29);
 
             var fibonacciNeighbors = fibonacciNeighborService.FindNeighbors(grid, fibonacciCells);
-            var fibonacciSequences = fibonacciSequenceService.FindFibonacciSequences(fibonacciNeighbors);
+            var sequenceCells = fibonacciSequenceService.FindFibonacciSequences(fibonacciNeighbors);
 
             // Assert
-            Assert.AreEqual(5, fibonacciSequences.SelectMany(sequence => sequence).Count());
+            Assert.AreEqual(5, sequenceCells.Count());
         }
     }
 }
