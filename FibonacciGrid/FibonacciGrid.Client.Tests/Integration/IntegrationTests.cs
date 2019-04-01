@@ -5,7 +5,7 @@ using FibonacciGrid.Client.Models;
 using FibonacciGrid.Client.Services;
 using NUnit.Framework;
 
-namespace FibonacciGrid.Client.Tests.Services
+namespace FibonacciGrid.Client.Tests.Integration
 {
     public class IntegrationTests
     {
