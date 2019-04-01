@@ -62,7 +62,9 @@ else
 
         Task.Run(() =>
         {
-            Thread.Sleep(1000);
+            if (!sequenceCells.Any()) return;
+            
+            Thread.Sleep(500);
 
             sequenceCells.ForEach(gridCell =>
                 gridCell.ResetValue());
