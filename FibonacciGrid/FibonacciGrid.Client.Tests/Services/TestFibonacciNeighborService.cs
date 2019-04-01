@@ -72,10 +72,14 @@ namespace FibonacciGrid.Client.Tests.Services
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(false);
             var grid = new Grid(fibonacciCheckerService);
 
-            var cellsToSetToFalse = new List<Tuple<int, int>> { Tuple.Create(25, 20), Tuple.Create(25, 30), Tuple.Create(24, 25), Tuple.Create(26, 25) };
-            foreach (var (rowIndex, columnIndex) in cellsToSetToFalse)
+            Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
+            var cellsToSetToTrue = Enumerable.Range(1, 9)
+                .Select(i => Tuple.Create(25, 20 + i))
+                .ToList();
+
+            foreach (var (rowIndex, columnIndex) in cellsToSetToTrue)
             {
-                grid.FibonacciGrid[rowIndex, columnIndex].IncrementGridCellValue(4);
+                grid.FibonacciGrid[rowIndex, columnIndex].IncrementGridCellValue(5);
             }
 
             var cellToCheck = new List<Tuple<int, int>>
@@ -101,10 +105,14 @@ namespace FibonacciGrid.Client.Tests.Services
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(false);
             var grid = new Grid(fibonacciCheckerService);
 
-            var cellsToSetToFalse = new List<Tuple<int, int>> { Tuple.Create(20, 25), Tuple.Create(30, 25), Tuple.Create(25, 24), Tuple.Create(25, 26) };
-            foreach (var (rowIndex, columnIndex) in cellsToSetToFalse)
+            Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
+            var cellsToSetToTrue = Enumerable.Range(1, 9)
+                .Select(i => Tuple.Create(20 + i, 25))
+                .ToList();
+
+            foreach (var (rowIndex, columnIndex) in cellsToSetToTrue)
             {
-                grid.FibonacciGrid[rowIndex, columnIndex].IncrementGridCellValue(4);
+                grid.FibonacciGrid[rowIndex, columnIndex].IncrementGridCellValue(5);
             }
 
             var cellToCheck = new List<Tuple<int, int>>
@@ -130,10 +138,17 @@ namespace FibonacciGrid.Client.Tests.Services
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(false);
             var grid = new Grid(fibonacciCheckerService);
 
-            var cellsToSetToFalse = new List<Tuple<int, int>> { Tuple.Create(20, 25), Tuple.Create(30, 25), Tuple.Create(25, 20), Tuple.Create(25, 30) };
-            foreach (var (rowIndex, columnIndex) in cellsToSetToFalse)
+            Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
+            var cellsToSetToTrue = new List<Tuple<int, int>>();
+            foreach (var i in Enumerable.Range(1, 9))
             {
-                grid.FibonacciGrid[rowIndex, columnIndex].IncrementGridCellValue(4);
+                cellsToSetToTrue.Add(Tuple.Create(20 + i, 25));
+                cellsToSetToTrue.Add(Tuple.Create(25, 20 + i));
+            }
+
+            foreach (var (rowIndex, columnIndex) in cellsToSetToTrue)
+            {
+                grid.FibonacciGrid[rowIndex, columnIndex].IncrementGridCellValue(5);
             }
 
             var cellToCheck = new List<Tuple<int, int>>
@@ -157,17 +172,29 @@ namespace FibonacciGrid.Client.Tests.Services
             // Arrange
             var fibonacciSequenceService = new FibonacciNeighborService();
             var fibonacciCheckerService = Mock.Of<IFibonacciCheckerService>();
-            Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(false);
+            Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
             var grid = new Grid(fibonacciCheckerService);
 
-            var neighbors1 = new List<Tuple<int, int>> { Tuple.Create(20, 25), Tuple.Create(30, 25), Tuple.Create(25, 20), Tuple.Create(25, 30) };  // 17 neighbors
-            var neighbors2 = new List<Tuple<int, int>> { Tuple.Create(14, 10), Tuple.Create(22, 10), Tuple.Create(20, 5), Tuple.Create(20, 13) };    // 13 neighbors
-            var neighbors3 = new List<Tuple<int, int>> { Tuple.Create(30, 48), Tuple.Create(49, 48), Tuple.Create(40, 42), Tuple.Create(40, 49) };  // 23 neighbors
-            var cellsToSetToFalse = new List<List<Tuple<int, int>>> { neighbors1, neighbors2, neighbors3};
-
-            foreach (var (rowIndex, columnIndex) in cellsToSetToFalse.SelectMany(neighborList => neighborList))
+            var cellsToSetToTrue = new List<Tuple<int, int>>();
+            foreach (var i in Enumerable.Range(1, 9))
             {
-                grid.FibonacciGrid[rowIndex, columnIndex].IncrementGridCellValue(4);
+                cellsToSetToTrue.Add(Tuple.Create(20 + i, 25));
+                cellsToSetToTrue.Add(Tuple.Create(25, 20 + i));
+            }
+            foreach (var i in Enumerable.Range(5, 11))
+            {
+                cellsToSetToTrue.Add(Tuple.Create(10 + i, 10));
+                cellsToSetToTrue.Add(Tuple.Create(20, 1 + i));
+            }
+            foreach (var i in Enumerable.Range(1, 18))
+            {
+                cellsToSetToTrue.Add(Tuple.Create(30 + i, 48));
+                cellsToSetToTrue.Add(Tuple.Create(40, 30 + i));
+            }
+
+            foreach (var (rowIndex, columnIndex) in cellsToSetToTrue)
+            {
+                grid.FibonacciGrid[rowIndex, columnIndex].IncrementGridCellValue(5);
             }
 
             var cellToCheck = new List<Tuple<int, int>>
@@ -181,18 +208,17 @@ namespace FibonacciGrid.Client.Tests.Services
             var neighbors = fibonacciSequenceService.FindNeighbors(grid, cellToCheck);
 
             // Assert
-            Assert.AreEqual(56, neighbors.SelectMany(neighborList => neighborList).Count());
+            Assert.AreEqual(76, neighbors.SelectMany(neighborList => neighborList).Count());
         }
 
         [Test]
-        public void Given_CellCoordinate_When_CheckingSequence_Expect_TwoListsOfNeighbors()
+        public void Given_CellCoordinate_When_CheckingSequence_Expect_NoNeighbors()
         {
             // Arrange
             var fibonacciSequenceService = new FibonacciNeighborService();
             var fibonacciCheckerService = Mock.Of<IFibonacciCheckerService>();
-            Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
+            Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(false);
             var grid = new Grid( fibonacciCheckerService);
-
 
             var cellToCheck = new List<Tuple<int, int>>
             {
@@ -203,7 +229,7 @@ namespace FibonacciGrid.Client.Tests.Services
             var neighbors = fibonacciSequenceService.FindNeighbors(grid, cellToCheck);
 
             // Assert
-            Assert.AreEqual(2, neighbors.Count);
+            Assert.AreEqual(0, neighbors.Count);
         }
 
         [Test]
@@ -215,12 +241,33 @@ namespace FibonacciGrid.Client.Tests.Services
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
             var grid = new Grid(fibonacciCheckerService);
 
+            var cellsToSetToTrue = new List<Tuple<int, int>>();
+            foreach (var i in Enumerable.Range(4, 6))
+            {
+                cellsToSetToTrue.Add(Tuple.Create(20 + i, 25));
+                cellsToSetToTrue.Add(Tuple.Create(25, 20 + i));
+            }
+            foreach (var i in Enumerable.Range(9, 11))
+            {
+                cellsToSetToTrue.Add(Tuple.Create(20 + i, 30));
+                cellsToSetToTrue.Add(Tuple.Create(30, 20 + i));
+            }
+            foreach (var i in Enumerable.Range(9, 11))
+            {
+                cellsToSetToTrue.Add(Tuple.Create(30 + i, 40));
+                cellsToSetToTrue.Add(Tuple.Create(40, 30 + i));
+            }
+
+            foreach (var (rowIndex, columnIndex) in cellsToSetToTrue)
+            {
+                grid.FibonacciGrid[rowIndex, columnIndex].IncrementGridCellValue(5);
+            }
 
             var cellToCheck = new List<Tuple<int, int>>
             {
                 Tuple.Create(25, 25),
-                Tuple.Create(30, 25),
-                Tuple.Create(40, 10),
+                Tuple.Create(30, 30),
+                Tuple.Create(40, 40),
             };
 
             // Act

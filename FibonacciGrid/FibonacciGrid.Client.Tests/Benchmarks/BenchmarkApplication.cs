@@ -10,7 +10,7 @@ namespace FibonacciGrid.Client.Tests.Benchmarks
     public class BenchmarkApplication
     {
         [Test, Category("Benchmark")]
-        public void Given_Grid_When_IncrementingCellsToAFibonacciSequence_Expect_FiveGridCellsInList()
+        public void BenchmarkApplicationTenTimes()
         {
             // Arrange
             var grid = new Grid(new FibonacciCheckerService());

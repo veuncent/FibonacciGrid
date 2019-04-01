@@ -7,7 +7,7 @@ namespace FibonacciGrid.Client.Models
         private readonly IFibonacciCheckerService _fibonacciCheckerService;
 
         public int Value { get; private set; }
-        public bool IsFibonacci { get; private set; } = true;
+        public bool IsFibonacci { get; private set; }
         public bool IsSequentialFibonacci { get; private set; }
 
         public GridCell(IFibonacciCheckerService fibonacciCheckerService)
@@ -24,7 +24,7 @@ namespace FibonacciGrid.Client.Models
         public void ResetValue()
         {
             Value = 0;
-            IsFibonacci = true;
+            IsFibonacci = false;
             IsSequentialFibonacci = false;
         }
 

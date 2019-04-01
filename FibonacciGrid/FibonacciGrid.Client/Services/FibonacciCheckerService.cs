@@ -22,6 +22,11 @@ namespace FibonacciGrid.Client.Services
 
         private static bool CheckIfIsFibonacci(int number)
         {
+            if (number == 0)
+            {
+                return false;
+            }
+
             var fiveNSquare = 5 * number * number;
             return IsPerfectSquare(fiveNSquare - 4) || IsPerfectSquare(fiveNSquare + 4);
         }
