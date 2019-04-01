@@ -15,7 +15,7 @@ namespace FibonacciGrid.Client.Services
             var sequentialFibonacciCells = new List<List<GridCell>>();
             foreach (var fibonacciCellGroup in groupedFibonacciCells)
             {
-                var sequentialCells = CheckFibonacciSequence(fibonacciCellGroup);
+                var sequentialCells = FindFibonacciSequence(fibonacciCellGroup);
                 if (sequentialCells.Count > 0)
                 {
                     sequentialFibonacciCells.Add(sequentialCells);
@@ -25,7 +25,7 @@ namespace FibonacciGrid.Client.Services
             return sequentialFibonacciCells;
         }
 
-        private List<GridCell> CheckFibonacciSequence(IReadOnlyCollection<GridCell> fibonacciCellGroup)
+        private List<GridCell> FindFibonacciSequence(IReadOnlyCollection<GridCell> fibonacciCellGroup)
         {
             var fibonacciSequence = new List<GridCell>();
 
@@ -34,11 +34,22 @@ namespace FibonacciGrid.Client.Services
                 return fibonacciSequence;
             }
 
+            HandleNonFibonacciCells(fibonacciCellGroup);
+            DetectFibonacciSequences(fibonacciCellGroup, fibonacciSequence);
+
+            return fibonacciSequence;
+        }
+
+        private static void HandleNonFibonacciCells(IReadOnlyCollection<GridCell> fibonacciCellGroup)
+        {
             if (fibonacciCellGroup.Any(cel => !cel.IsFibonacci))
             {
                 throw new ArgumentException("Only GridCells that have a Fibonacci value are allowed");
             }
+        }
 
+        private void DetectFibonacciSequences(IReadOnlyCollection<GridCell> fibonacciCellGroup, List<GridCell> fibonacciSequence)
+        {
             var fibonacciSequenceTempList = new List<GridCell>();
 
             for (var i = 0; i < fibonacciCellGroup.Count; i++)
@@ -48,7 +59,7 @@ namespace FibonacciGrid.Client.Services
                 var valueA = gridCell.Value;
                 var nextValue = fibonacciCellGroup.ElementAtOrDefault(i + 1)?.Value;
 
-                if (valueA < previous?.Value)
+                if (HasSequenceRestarted(valueA, previous))
                 {
                     CollectIntermediateResults(fibonacciSequenceTempList, fibonacciSequence);
                 }
@@ -61,23 +72,14 @@ namespace FibonacciGrid.Client.Services
                         break;
                     }
 
-                    var valueC = fibonacciCellGroup.ElementAt(i + 2).Value;
-                    
-                    if (valueA + nextValue == valueC && nextValue != 0 && valueC != 0)
-                    {
-                        fibonacciSequenceTempList.Add(fibonacciCellGroup.ElementAt(i));
-                    }
-                    else
-                    {
-                        CollectIntermediateResults(fibonacciSequenceTempList, fibonacciSequence);
-                    }
-
+                    EvaluateZeroOrOneFibonacci(fibonacciCellGroup, i, valueA, nextValue, fibonacciSequenceTempList,
+                        fibonacciSequence);
                     continue;
                 }
 
                 if (previous != null)
                 {
-                    var expected = (int)Math.Round(previous.Value * _phi);
+                    var expected = (int) Math.Round(previous.Value * _phi);
                     if (expected == valueA)
                     {
                         fibonacciSequenceTempList.Add(gridCell);
@@ -96,8 +98,26 @@ namespace FibonacciGrid.Client.Services
             }
 
             CollectResultsInSequenceList(fibonacciSequenceTempList, fibonacciSequence);
+        }
 
-            return fibonacciSequence;
+        private static bool HasSequenceRestarted(int valueA, GridCell previous)
+        {
+            return valueA < previous?.Value;
+        }
+
+        private static void EvaluateZeroOrOneFibonacci(IReadOnlyCollection<GridCell> fibonacciCellGroup, int i, int valueA,
+            int? nextValue, List<GridCell> fibonacciSequenceTempList, List<GridCell> fibonacciSequence)
+        {
+            var valueC = fibonacciCellGroup.ElementAt(i + 2).Value;
+
+            if (valueA + nextValue == valueC && nextValue != 0 && valueC != 0)
+            {
+                fibonacciSequenceTempList.Add(fibonacciCellGroup.ElementAt(i));
+            }
+            else
+            {
+                CollectIntermediateResults(fibonacciSequenceTempList, fibonacciSequence);
+            }
         }
 
         private static void CollectIntermediateResults(List<GridCell> fibonacciSequenceTempList, List<GridCell> fibonacciSequence)
@@ -106,17 +126,17 @@ namespace FibonacciGrid.Client.Services
             fibonacciSequenceTempList.Clear();
         }
 
-        private static bool ContinuingIsFutile(IReadOnlyCollection<GridCell> fibonacciCellGroup, int currentIndex)
-        {
-            return fibonacciCellGroup.Count - currentIndex < FibonacciSequenceMinimum;
-        }
-
         private static void CollectResultsInSequenceList(IReadOnlyCollection<GridCell> fibonacciSequenceTempList, List<GridCell> fibonacciSequence)
         {
             if (fibonacciSequenceTempList.Count >= FibonacciSequenceMinimum)
             {
                 fibonacciSequence.AddRange(fibonacciSequenceTempList);
             }
+        }
+
+        private static bool ContinuingIsFutile(IReadOnlyCollection<GridCell> fibonacciCellGroup, int currentIndex)
+        {
+            return fibonacciCellGroup.Count - currentIndex < FibonacciSequenceMinimum;
         }
     }
 }
