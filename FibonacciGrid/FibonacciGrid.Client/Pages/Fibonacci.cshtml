@@ -71,6 +71,8 @@ else
 
             sequenceCells.ForEach(gridCell =>
                 gridCell.ResetValue());
+
+            this.StateHasChanged();
         });
     }
 }
