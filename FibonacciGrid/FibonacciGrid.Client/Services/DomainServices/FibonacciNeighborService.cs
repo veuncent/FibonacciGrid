@@ -14,7 +14,7 @@ namespace FibonacciGrid.Client.Services.DomainServices
         /// <param name="grid"></param>
         /// <param name="cellsToCheck"></param>
         /// <returns>List of neighboring Fibonacci cells grouped by cell from input</returns>
-        public List<List<GridCell>> FindNeighbors(Grid grid, List<Tuple<int, int>> cellsToCheck)
+        public List<List<GridCell>> FindNeighbors(IGrid grid, List<Tuple<int, int>> cellsToCheck)
         {
             var groupedFibonacciCells = new List<List<GridCell>>();
             foreach (var (rowIndex, columnIndex) in cellsToCheck)
@@ -25,7 +25,7 @@ namespace FibonacciGrid.Client.Services.DomainServices
             return groupedFibonacciCells;
         }
 
-        private static void GetNeighboringFibonacciCells(Grid grid, int initialRow, int initialColumn, ICollection<List<GridCell>> groupedFibonacciCells)
+        private static void GetNeighboringFibonacciCells(IGrid grid, int initialRow, int initialColumn, ICollection<List<GridCell>> groupedFibonacciCells)
         {
             var verticalNeighbors = new List<GridCell>();
             for (var iteratedRow = initialRow -1; iteratedRow >= 0; iteratedRow--)
@@ -57,7 +57,7 @@ namespace FibonacciGrid.Client.Services.DomainServices
             AddGroupedNeighbors(groupedFibonacciCells, horizontalNeighbors);
         }
 
-        private static bool AddCellOrBreak(Grid grid, int rowIndex, int columnIndex, ICollection<GridCell> fibonacciCells)
+        private static bool AddCellOrBreak(IGrid grid, int rowIndex, int columnIndex, ICollection<GridCell> fibonacciCells)
         {
             var gridCell = grid.FibonacciGrid[rowIndex, columnIndex];
 

@@ -6,6 +6,6 @@ namespace FibonacciGrid.Client.Services.DomainServices
 {
     public interface IGridCellUpdaterService
     {
-        List<Tuple<int, int>> UpdateCell(Grid grid, int increment, int rowIndex, int columnIndex);
+        List<Tuple<int, int>> UpdateCell(IGrid grid, int increment, int rowIndex, int columnIndex);
     }
 }

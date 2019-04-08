@@ -14,7 +14,7 @@ namespace FibonacciGrid.Client.Services.DomainServices
         /// <param name="rowIndex">The row index of the selected cell</param>
         /// <param name="columnIndex">The column index of the selected cell</param>
         /// <returns>Returns a list of all cells that have a Fibonacci value after updating. Coordinates of each cell are stored in a Tuple</returns>
-        public List<Tuple<int, int>> UpdateCell(Grid grid, int increment, int rowIndex, int columnIndex)
+        public List<Tuple<int, int>> UpdateCell(IGrid grid, int increment, int rowIndex, int columnIndex)
         {
             var fibonacciCells = new List<Tuple<int, int>>();
             for (var row = 0; row < grid.FibonacciGrid.GetLength(0); row++)

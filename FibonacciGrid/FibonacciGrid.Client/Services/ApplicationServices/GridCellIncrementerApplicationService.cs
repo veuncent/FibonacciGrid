@@ -26,7 +26,7 @@ namespace FibonacciGrid.Client.Services.ApplicationServices
             _fibonacciSequenceService = fibonacciSequenceService;
         }
 
-        public void IncrementGridCell(int row, int column, Grid fibonacciGrid)
+        public void IncrementGridCell(int row, int column, IGrid fibonacciGrid)
         {
             var fibonacciCells = _gridCellUpdaterService.UpdateCell(fibonacciGrid, GridCellIncrement, row, column);
             var fibonacciNeighbors = _fibonacciNeighborService.FindNeighbors(fibonacciGrid, fibonacciCells);
