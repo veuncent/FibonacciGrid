@@ -1,8 +1,5 @@
-﻿using System;
-using FibonacciGrid.Client.Models;
+﻿using FibonacciGrid.Client.Models;
 using NUnit.Framework;
-using System.Diagnostics;
-using FibonacciGrid.Client.Services;
 using FibonacciGrid.Client.Services.DomainServices;
 using Moq;
 

@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Linq;
 using FibonacciGrid.Client.Models;
-using FibonacciGrid.Client.Services;
 using FibonacciGrid.Client.Services.DomainServices;
 using NUnit.Framework;
 
