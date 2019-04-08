@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FibonacciGrid.Client\FibonacciGrid.Client.csproj" />
-    <ProjectReference Include="..\FibonacciGrid.Shared\FibonacciGrid.Shared.csproj" />
   </ItemGroup>
 
 </Project>
