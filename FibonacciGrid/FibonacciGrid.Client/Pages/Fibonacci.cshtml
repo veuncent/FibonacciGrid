@@ -1,11 +1,10 @@
 ﻿@page "/"
-@using System.Threading
 @using FibonacciGrid.Client.Models
+@using FibonacciGrid.Client.Services.ApplicationServices
 @using FibonacciGrid.Client.Services.DomainServices
-@inject IGridCellUpdaterService GridCellUpdaterService
 @inject IFibonacciCheckerService FibonacciCheckerService
-@inject IFibonacciNeighborService FibonacciNeighborService
-@inject IFibonacciSequenceService FibonacciSequenceService
+@inject IGridCellIncrementerApplicationService GridCellIncrementerApplicationService
+
 
 <h1>Fibonacci Grid</h1>
 
@@ -32,7 +31,7 @@ else
                             style="animation: @highlightAnimation;
                                       -webkit-animation: @highlightAnimation;">
 
-                            <a onclick="@(() => PlusOne(row, column))">
+                            <a onclick="@(() => GridCellIncrementerApplicationService.IncrementGridCell(row, column, _fibonacciGrid))">
                                 <span class="cell-fill"></span>
                             </a>
 
@@ -51,29 +50,8 @@ else
 
     protected override void OnInit()
     {
+        GridCellIncrementerApplicationService.OnGridCellsReset += this.StateHasChanged;
         _fibonacciGrid = new Grid(FibonacciCheckerService, 50);
     }
-
-    void PlusOne(int row, int column)
-    {
-        const int increment = 1;
-        var fibonacciCells = GridCellUpdaterService.UpdateCell(_fibonacciGrid, increment, row, column);
-        var fibonacciNeighbors = FibonacciNeighborService.FindNeighbors(_fibonacciGrid, fibonacciCells);
-        var sequenceCells = FibonacciSequenceService.FindFibonacciSequences(fibonacciNeighbors);
-
-        sequenceCells.ForEach(gridCell =>
-                gridCell.SetAsSequentialFibonacci());
-
-        Task.Run(() =>
-        {
-            if (!sequenceCells.Any()) return;
-
-            Thread.Sleep(1000);
-
-            sequenceCells.ForEach(gridCell =>
-                gridCell.ResetValue());
-
-            this.StateHasChanged();
-        });
-    }
+}
 }
