@@ -1,4 +1,5 @@
 using FibonacciGrid.Client.Services;
+using FibonacciGrid.Client.Services.DomainServices;
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
 

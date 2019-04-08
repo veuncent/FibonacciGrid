@@ -1,4 +1,4 @@
-﻿namespace FibonacciGrid.Client.Services
+﻿namespace FibonacciGrid.Client.Services.DomainServices
 {
     public interface IFibonacciCheckerService
     {

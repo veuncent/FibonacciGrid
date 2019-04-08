@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FibonacciGrid.Client.Services
+namespace FibonacciGrid.Client.Services.DomainServices
 {
     public class FibonacciCheckerService : IFibonacciCheckerService
     {

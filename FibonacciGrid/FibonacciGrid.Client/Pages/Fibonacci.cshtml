@@ -1,10 +1,11 @@
 ﻿@page "/"
 @using System.Threading
 @using FibonacciGrid.Client.Models
-@inject Services.IGridCellUpdaterService GridCellUpdaterService
-@inject Services.IFibonacciCheckerService FibonacciCheckerService
-@inject Services.IFibonacciNeighborService FibonacciNeighborService
-@inject Services.IFibonacciSequenceService FibonacciSequenceService
+@using FibonacciGrid.Client.Services.DomainServices
+@inject IGridCellUpdaterService GridCellUpdaterService
+@inject IFibonacciCheckerService FibonacciCheckerService
+@inject IFibonacciNeighborService FibonacciNeighborService
+@inject IFibonacciSequenceService FibonacciSequenceService
 
 <h1>Fibonacci Grid</h1>
 

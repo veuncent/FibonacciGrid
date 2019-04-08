@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FibonacciGrid.Client.Models;
 
-namespace FibonacciGrid.Client.Services
+namespace FibonacciGrid.Client.Services.DomainServices
 {
     public class FibonacciSequenceService : IFibonacciSequenceService
     {

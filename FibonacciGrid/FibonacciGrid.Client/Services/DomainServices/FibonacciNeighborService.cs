@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using FibonacciGrid.Client.Models;
 
-namespace FibonacciGrid.Client.Services
+namespace FibonacciGrid.Client.Services.DomainServices
 {
     public class FibonacciNeighborService : IFibonacciNeighborService
     {
