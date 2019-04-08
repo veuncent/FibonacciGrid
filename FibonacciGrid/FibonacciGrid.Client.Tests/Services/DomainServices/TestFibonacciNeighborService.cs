@@ -15,15 +15,16 @@ namespace FibonacciGrid.Client.Tests.Services
         public void Given_CellCoordinate_When_NoNeighborsAreFibonacci_Expect_EmptyList()
         {
             // Arrange
+            var fibonacciNeighborService = new FibonacciNeighborService();
+
             var fibonacciCheckerService = Mock.Of<IFibonacciCheckerService>();
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(false);
+
             var grid = new Grid(fibonacciCheckerService);
             foreach (var gridCell in grid.FibonacciGrid)
             {
                 gridCell.IncrementGridCellValue(4);
             }
-
-            var fibonacciSequenceService = new FibonacciNeighborService();
 
             var cellToCheck = new List<Tuple<int, int>>
             {
@@ -31,7 +32,7 @@ namespace FibonacciGrid.Client.Tests.Services
             };
 
             // Act
-            var neighbors = fibonacciSequenceService.FindNeighbors(grid, cellToCheck);
+            var neighbors = fibonacciNeighborService.FindNeighbors(grid, cellToCheck);
 
             // Assert
             Assert.AreEqual(0, neighbors.Count);
@@ -41,9 +42,11 @@ namespace FibonacciGrid.Client.Tests.Services
         public void Given_CellCoordinate_When_FibonacciNeighborsAreBelowThreshold_Expect_EmptyList()
         {
             // Arrange
-            var fibonacciSequenceService = new FibonacciNeighborService();
+            var fibonacciNeighborService = new FibonacciNeighborService();
+
             var fibonacciCheckerService = Mock.Of<IFibonacciCheckerService>();
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(false);
+
             var grid = new Grid(fibonacciCheckerService);
 
             var cellsToSetToFalse = new List<Tuple<int, int>> { Tuple.Create(25, 23), Tuple.Create(25, 27), Tuple.Create(24, 25), Tuple.Create(26, 25) };
@@ -58,7 +61,7 @@ namespace FibonacciGrid.Client.Tests.Services
             };
 
             // Act
-            var neighbors = fibonacciSequenceService.FindNeighbors(grid, cellToCheck);
+            var neighbors = fibonacciNeighborService.FindNeighbors(grid, cellToCheck);
 
             // Assert
             Assert.AreEqual(0, neighbors.Count);
@@ -68,9 +71,11 @@ namespace FibonacciGrid.Client.Tests.Services
         public void Given_CellCoordinate_When_HorizontalFibonacciNeighborsAreAboveThreshold_Expect_CorrectListCount()
         {
             // Arrange
-            var fibonacciSequenceService = new FibonacciNeighborService();
+            var fibonacciNeighborService = new FibonacciNeighborService();
+
             var fibonacciCheckerService = Mock.Of<IFibonacciCheckerService>();
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(false);
+
             var grid = new Grid(fibonacciCheckerService);
 
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
@@ -89,7 +94,7 @@ namespace FibonacciGrid.Client.Tests.Services
             };
 
             // Act
-            var neighbors = fibonacciSequenceService.FindNeighbors(grid, cellToCheck);
+            var neighbors = fibonacciNeighborService.FindNeighbors(grid, cellToCheck);
 
             // Assert
             Assert.AreEqual(1, neighbors.Count);
@@ -101,9 +106,11 @@ namespace FibonacciGrid.Client.Tests.Services
         public void Given_CellCoordinate_When_VerticalFibonacciNeighborsAreAboveThreshold_Expect_SingleListWithCorrectNeighborCount()
         {
             // Arrange
-            var fibonacciSequenceService = new FibonacciNeighborService();
+            var fibonacciNeighborService = new FibonacciNeighborService();
+
             var fibonacciCheckerService = Mock.Of<IFibonacciCheckerService>();
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(false);
+
             var grid = new Grid(fibonacciCheckerService);
 
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
@@ -122,7 +129,7 @@ namespace FibonacciGrid.Client.Tests.Services
             };
 
             // Act
-            var neighbors = fibonacciSequenceService.FindNeighbors(grid, cellToCheck);
+            var neighbors = fibonacciNeighborService.FindNeighbors(grid, cellToCheck);
 
             // Assert
             Assert.AreEqual(1, neighbors.Count);
@@ -135,12 +142,15 @@ namespace FibonacciGrid.Client.Tests.Services
         {
             // Arrange
             var fibonacciSequenceService = new FibonacciNeighborService();
+
             var fibonacciCheckerService = Mock.Of<IFibonacciCheckerService>();
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(false);
+
             var grid = new Grid(fibonacciCheckerService);
 
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
             var cellsToSetToTrue = new List<Tuple<int, int>>();
+
             foreach (var i in Enumerable.Range(1, 9))
             {
                 cellsToSetToTrue.Add(Tuple.Create(20 + i, 25));
@@ -171,9 +181,11 @@ namespace FibonacciGrid.Client.Tests.Services
         public void Given_MultipleCellCoordinates_When_HorizontalAndVerticalFibonacciNeighborsAreAboveThreshold_Expect_CorrectNeighborCount()
         {
             // Arrange
-            var fibonacciSequenceService = new FibonacciNeighborService();
+            var fibonacciNeighborService = new FibonacciNeighborService();
+
             var fibonacciCheckerService = Mock.Of<IFibonacciCheckerService>();
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
+
             var grid = new Grid(fibonacciCheckerService);
 
             var cellsToSetToTrue = new List<Tuple<int, int>>();
@@ -182,11 +194,13 @@ namespace FibonacciGrid.Client.Tests.Services
                 cellsToSetToTrue.Add(Tuple.Create(20 + i, 25));
                 cellsToSetToTrue.Add(Tuple.Create(25, 20 + i));
             }
+
             foreach (var i in Enumerable.Range(5, 11))
             {
                 cellsToSetToTrue.Add(Tuple.Create(10 + i, 10));
                 cellsToSetToTrue.Add(Tuple.Create(20, 1 + i));
             }
+
             foreach (var i in Enumerable.Range(1, 18))
             {
                 cellsToSetToTrue.Add(Tuple.Create(30 + i, 48));
@@ -206,7 +220,7 @@ namespace FibonacciGrid.Client.Tests.Services
             };
 
             // Act
-            var neighbors = fibonacciSequenceService.FindNeighbors(grid, cellToCheck);
+            var neighbors = fibonacciNeighborService.FindNeighbors(grid, cellToCheck);
 
             // Assert
             Assert.AreEqual(76, neighbors.SelectMany(neighborList => neighborList).Count());
@@ -216,9 +230,11 @@ namespace FibonacciGrid.Client.Tests.Services
         public void Given_CellCoordinate_When_CheckingSequence_Expect_NoNeighbors()
         {
             // Arrange
-            var fibonacciSequenceService = new FibonacciNeighborService();
+            var fibonacciNeighborService = new FibonacciNeighborService();
+
             var fibonacciCheckerService = Mock.Of<IFibonacciCheckerService>();
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(false);
+
             var grid = new Grid( fibonacciCheckerService);
 
             var cellToCheck = new List<Tuple<int, int>>
@@ -227,7 +243,7 @@ namespace FibonacciGrid.Client.Tests.Services
             };
 
             // Act
-            var neighbors = fibonacciSequenceService.FindNeighbors(grid, cellToCheck);
+            var neighbors = fibonacciNeighborService.FindNeighbors(grid, cellToCheck);
 
             // Assert
             Assert.AreEqual(0, neighbors.Count);
@@ -237,9 +253,11 @@ namespace FibonacciGrid.Client.Tests.Services
         public void Given_ThreeCellCoordinates_When_CheckingSequence_Expect_SixListOfNeighbors()
         {
             // Arrange
-            var fibonacciSequenceService = new FibonacciNeighborService();
+            var fibonacciNeighborService = new FibonacciNeighborService();
+
             var fibonacciCheckerService = Mock.Of<IFibonacciCheckerService>();
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
+
             var grid = new Grid(fibonacciCheckerService);
 
             var cellsToSetToTrue = new List<Tuple<int, int>>();
@@ -248,11 +266,13 @@ namespace FibonacciGrid.Client.Tests.Services
                 cellsToSetToTrue.Add(Tuple.Create(20 + i, 25));
                 cellsToSetToTrue.Add(Tuple.Create(25, 20 + i));
             }
+
             foreach (var i in Enumerable.Range(9, 11))
             {
                 cellsToSetToTrue.Add(Tuple.Create(20 + i, 30));
                 cellsToSetToTrue.Add(Tuple.Create(30, 20 + i));
             }
+
             foreach (var i in Enumerable.Range(9, 11))
             {
                 cellsToSetToTrue.Add(Tuple.Create(30 + i, 40));
@@ -272,7 +292,7 @@ namespace FibonacciGrid.Client.Tests.Services
             };
 
             // Act
-            var neighbors = fibonacciSequenceService.FindNeighbors(grid, cellToCheck);
+            var neighbors = fibonacciNeighborService.FindNeighbors(grid, cellToCheck);
 
             // Assert
             Assert.AreEqual(6, neighbors.Count);
