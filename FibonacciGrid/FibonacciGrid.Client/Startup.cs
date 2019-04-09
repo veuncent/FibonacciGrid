@@ -14,6 +14,7 @@ namespace FibonacciGrid.Client
             services.AddSingleton<IFibonacciNeighborService, FibonacciNeighborService>();
             services.AddSingleton<IFibonacciSequenceService, FibonacciSequenceService>();
             services.AddSingleton<IGridCellIncrementerApplicationService, GridCellIncrementerApplicationService>();
+            services.AddSingleton<IGridCellResetterApplicationService, GridCellResetterApplicationService>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)
