@@ -84,7 +84,7 @@ namespace FibonacciGrid.Client.Services.DomainServices
                 {
                     if (previousGridCell != null)
                     {
-                        var expectedValue = GetExpectedValueFromPreviousValue(previousGridCell);
+                        var expectedValue = GetExpectedValueFromPreviousValue(previousGridCell.Value);
                         if (expectedValue == currentValue)
                         {
                             fibonacciSequenceTempList.Add(currentGridCell);
@@ -136,9 +136,9 @@ namespace FibonacciGrid.Client.Services.DomainServices
             return valueA + valueB == valueC && valueC != 0;
         }
 
-        private int GetExpectedValueFromPreviousValue(GridCell previousGridCell)
+        private int GetExpectedValueFromPreviousValue(int previousValue)
         {
-            return (int) Math.Round(previousGridCell.Value * _phi);
+            return (int) Math.Round(previousValue * _phi);
         }
 
         private static void CollectIntermediateResults(List<GridCell> fibonacciSequenceTempList, List<GridCell> fibonacciSequence)
