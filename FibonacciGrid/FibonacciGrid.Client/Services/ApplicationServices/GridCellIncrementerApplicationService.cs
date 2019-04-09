@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using FibonacciGrid.Client.Models;
 using FibonacciGrid.Client.Services.DomainServices;
 
@@ -13,17 +10,32 @@ namespace FibonacciGrid.Client.Services.ApplicationServices
         private readonly IGridCellUpdaterService _gridCellUpdaterService;
         private readonly IFibonacciNeighborService _fibonacciNeighborService;
         private readonly IFibonacciSequenceService _fibonacciSequenceService;
+        private readonly IGridCellResetterApplicationService _gridCellResetterApplicationService;
         private const int GridCellIncrement = 1;
 
-        public event Action OnGridCellsReset;
+        public event Action OnGridCellsChange;
 
         public GridCellIncrementerApplicationService(IGridCellUpdaterService gridCellUpdaterService,
             IFibonacciNeighborService fibonacciNeighborService,
-            IFibonacciSequenceService fibonacciSequenceService)
+            IFibonacciSequenceService fibonacciSequenceService,
+            IGridCellResetterApplicationService gridCellResetterApplicationService)
         {
             _gridCellUpdaterService = gridCellUpdaterService;
             _fibonacciNeighborService = fibonacciNeighborService;
             _fibonacciSequenceService = fibonacciSequenceService;
+
+            _gridCellResetterApplicationService = gridCellResetterApplicationService;
+            SubscribeToEvents();
+        }
+
+        private void SubscribeToEvents()
+        {
+            _gridCellResetterApplicationService.OnGridCellsReset += OnGridCellsResetEventHandler;
+        }
+
+        private void OnGridCellsResetEventHandler()
+        {
+            OnGridCellsChange?.Invoke();
         }
 
         public void IncrementGridCell(int row, int column, IGrid fibonacciGrid)
@@ -44,26 +56,7 @@ namespace FibonacciGrid.Client.Services.ApplicationServices
 
         private void ResetFibonacciSequences(List<GridCell> sequenceCells)
         {
-            Task.Run(() =>
-            {
-                if (!sequenceCells.Any()) return;
-
-                DelayReset();
-                ResetGridValues(sequenceCells);
-
-                OnGridCellsReset?.Invoke();
-            });
-        }
-
-        private static void DelayReset()
-        {
-            Thread.Sleep(1000);
-        }
-
-        private static void ResetGridValues(List<GridCell> sequenceCells)
-        {
-            sequenceCells.ForEach(gridCell =>
-                gridCell.ResetValue());
+            _gridCellResetterApplicationService.ResetGridCells(sequenceCells);
         }
     }
 }

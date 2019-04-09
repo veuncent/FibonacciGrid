@@ -50,7 +50,7 @@ else
 
     protected override void OnInit()
     {
-        GridCellIncrementerApplicationService.OnGridCellsReset += this.StateHasChanged;
+        GridCellIncrementerApplicationService.OnGridCellsChange += this.StateHasChanged;
         _fibonacciGrid = new Grid(FibonacciCheckerService, 50);
     }
 }

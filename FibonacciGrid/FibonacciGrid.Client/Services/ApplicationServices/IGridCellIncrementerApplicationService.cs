@@ -5,7 +5,7 @@ namespace FibonacciGrid.Client.Services.ApplicationServices
 {
     public interface IGridCellIncrementerApplicationService
     {
-        event Action OnGridCellsReset;
+        event Action OnGridCellsChange;
         void IncrementGridCell(int row, int column, IGrid fibonacciGrid);
     }
 }
