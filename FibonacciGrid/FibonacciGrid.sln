@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FibonacciGrid.Server", "Fib
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FibonacciGrid.Client", "FibonacciGrid.Client\FibonacciGrid.Client.csproj", "{00FD15D3-069E-4360-8A51-21A46BB64CDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FibonacciGrid.Client.Tests", "FibonacciGrid.Client.Tests\FibonacciGrid.Client.Tests.csproj", "{6030EA50-49A2-4DDC-A2AB-63BBE9108C35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FibonacciGrid.Client.Tests", "FibonacciGrid.Client.Tests\FibonacciGrid.Client.Tests.csproj", "{6030EA50-49A2-4DDC-A2AB-63BBE9108C35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
