@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FibonacciGrid.Client.Models;
 using FibonacciGrid.Client.Services.DomainServices;
 
@@ -23,8 +24,8 @@ namespace FibonacciGrid.Client.Services.ApplicationServices
             _gridCellUpdaterService = gridCellUpdaterService;
             _fibonacciNeighborService = fibonacciNeighborService;
             _fibonacciSequenceService = fibonacciSequenceService;
-
             _gridCellResetterApplicationService = gridCellResetterApplicationService;
+
             SubscribeToEvents();
         }
 
@@ -38,14 +39,14 @@ namespace FibonacciGrid.Client.Services.ApplicationServices
             OnGridCellsChange?.Invoke();
         }
 
-        public void IncrementGridCell(int row, int column, IGrid fibonacciGrid)
+        public async Task IncrementGridCell(int row, int column, IGrid fibonacciGrid)
         {
             var fibonacciCells = _gridCellUpdaterService.UpdateCell(fibonacciGrid, GridCellIncrement, row, column);
             var fibonacciNeighbors = _fibonacciNeighborService.FindNeighbors(fibonacciGrid, fibonacciCells);
             var sequenceCells = _fibonacciSequenceService.FindFibonacciSequences(fibonacciNeighbors);
 
             HighlightFibonacciSequences(sequenceCells);
-            ResetFibonacciSequences(sequenceCells);
+            await ResetFibonacciSequences(sequenceCells);
         }
 
         private static void HighlightFibonacciSequences(List<GridCell> sequenceCells)
@@ -54,9 +55,9 @@ namespace FibonacciGrid.Client.Services.ApplicationServices
                 gridCell.SetAsSequentialFibonacci());
         }
 
-        private void ResetFibonacciSequences(List<GridCell> sequenceCells)
+        private async Task ResetFibonacciSequences(List<GridCell> sequenceCells)
         {
-            _gridCellResetterApplicationService.ResetGridCells(sequenceCells);
+           await _gridCellResetterApplicationService.ResetGridCells(sequenceCells);
         }
     }
 }

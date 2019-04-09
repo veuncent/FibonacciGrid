@@ -31,7 +31,7 @@ else
                             style="animation: @highlightAnimation;
                                       -webkit-animation: @highlightAnimation;">
 
-                            <a onclick="@(() => GridCellIncrementerApplicationService.IncrementGridCell(row, column, _fibonacciGrid))">
+                            <a onclick="@(async () => await GridCellIncrementerApplicationService.IncrementGridCell(row, column, _fibonacciGrid))">
                                 <span class="cell-fill"></span>
                             </a>
 

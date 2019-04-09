@@ -11,7 +11,7 @@ namespace FibonacciGrid.Client.Tests.Services.ApplicationServices
     public class TestGridCellResetterApplicationService
     {
         [Test]
-        public void Test()
+        public void Given_GridCells_When_ResettingGridCells_Expect_ResetValues()
         {
             // Arrange
             var fibonacciCheckerService = Mock.Of<IFibonacciCheckerService>();

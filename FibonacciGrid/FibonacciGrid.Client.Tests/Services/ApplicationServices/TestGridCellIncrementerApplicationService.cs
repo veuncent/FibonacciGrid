@@ -37,7 +37,7 @@ namespace FibonacciGrid.Client.Tests.Services.ApplicationServices
             }
 
             // Act
-            gridCellIncrementerApplicationService.IncrementGridCell(1, 1, grid);
+            gridCellIncrementerApplicationService.IncrementGridCell(1, 1, grid).Wait();
 
             // Assert
             foreach (var sequenceGridCell in sequenceGridCells)
@@ -69,10 +69,9 @@ namespace FibonacciGrid.Client.Tests.Services.ApplicationServices
             gridCellIncrementerApplicationService.OnGridCellsChange += () => eventWasRaised = true;
 
             // Act
-            gridCellIncrementerApplicationService.IncrementGridCell(1, 1, grid);
+            gridCellIncrementerApplicationService.IncrementGridCell(1, 1, grid).Wait();
 
             // Assert
-            Thread.Sleep(2000);
             Assert.IsTrue(eventWasRaised);
         }
     }

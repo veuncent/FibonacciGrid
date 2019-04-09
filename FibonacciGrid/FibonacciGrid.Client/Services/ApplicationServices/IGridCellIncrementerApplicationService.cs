@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using FibonacciGrid.Client.Models;
 
 namespace FibonacciGrid.Client.Services.ApplicationServices
@@ -6,6 +7,6 @@ namespace FibonacciGrid.Client.Services.ApplicationServices
     public interface IGridCellIncrementerApplicationService
     {
         event Action OnGridCellsChange;
-        void IncrementGridCell(int row, int column, IGrid fibonacciGrid);
+        Task IncrementGridCell(int row, int column, IGrid fibonacciGrid);
     }
 }
