@@ -6,7 +6,7 @@ using FibonacciGrid.Client.Services.DomainServices;
 using Moq;
 using NUnit.Framework;
 
-namespace FibonacciGrid.Client.Tests.Services
+namespace FibonacciGrid.Client.Tests.Services.DomainServices
 {
     public class TestFibonacciNeighborService
     {

@@ -1,7 +1,7 @@
 ﻿using FibonacciGrid.Client.Services.DomainServices;
 using NUnit.Framework;
 
-namespace FibonacciGrid.Client.Tests.Services
+namespace FibonacciGrid.Client.Tests.Services.DomainServices
 {
     public class TestFibonacciCheckerService
     {

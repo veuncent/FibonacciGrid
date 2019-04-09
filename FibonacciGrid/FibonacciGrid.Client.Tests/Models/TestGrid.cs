@@ -15,7 +15,7 @@ namespace FibonacciGrid.Client.Tests.Models
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
 
             // Act
-            var grid = new Grid(fibonacciCheckerService, 50);
+            var grid = new Grid(fibonacciCheckerService);
 
             // Assert
             Assert.AreEqual(50, grid.FibonacciGrid.GetLength(0));

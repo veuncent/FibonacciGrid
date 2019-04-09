@@ -19,7 +19,7 @@ namespace FibonacciGrid.Client.Tests.Benchmarks
             var fibonacciSequenceService = new FibonacciSequenceService();
 
 
-            foreach (var i in Enumerable.Range(0, 10))
+            foreach (var _ in Enumerable.Range(0, 10))
             {
                 // Act
                 var stopwatch = new Stopwatch();

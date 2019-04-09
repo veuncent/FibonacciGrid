@@ -19,7 +19,7 @@ namespace FibonacciGrid.Client.Tests.Benchmarks
 
             // Act
             stopwatch.Start();
-            var grid = new Grid(fibonacciCheckerService, 50);
+            new Grid(fibonacciCheckerService, 50);
             stopwatch.Stop();
             Console.WriteLine(stopwatch.Elapsed);
         }
@@ -34,7 +34,7 @@ namespace FibonacciGrid.Client.Tests.Benchmarks
             // Act
             var stopwatch2 = new Stopwatch();
             stopwatch2.Start();
-            var gridList = new GridList(fibonacciCheckerService, 50);
+            new GridList(fibonacciCheckerService, 50);
             stopwatch2.Stop();
             Console.WriteLine(stopwatch2.Elapsed);
         }

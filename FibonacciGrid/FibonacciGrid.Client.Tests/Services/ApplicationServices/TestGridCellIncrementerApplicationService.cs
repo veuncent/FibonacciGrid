@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Collections.Generic;
 using FibonacciGrid.Client.Models;
 using FibonacciGrid.Client.Services.ApplicationServices;
 using FibonacciGrid.Client.Services.DomainServices;
