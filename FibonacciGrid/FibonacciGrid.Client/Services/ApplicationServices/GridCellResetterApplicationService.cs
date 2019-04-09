@@ -11,9 +11,9 @@ namespace FibonacciGrid.Client.Services.ApplicationServices
     {
         public event Action OnGridCellsReset;
 
-        public void ResetGridCells(List<GridCell> sequenceCells)
+        public async Task ResetGridCells(List<GridCell> sequenceCells)
         {
-            Task.Run(() =>
+            await Task.Run(() =>
             {
                 if (!sequenceCells.Any()) return;
 
