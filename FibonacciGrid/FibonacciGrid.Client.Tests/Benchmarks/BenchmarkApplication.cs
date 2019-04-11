@@ -80,13 +80,13 @@ namespace FibonacciGrid.Client.Tests.Benchmarks
                 IncrementGridCell(26, 26, 1);
                 IncrementGridCell(27, 27, 2);
                 IncrementGridCell(28, 28, 3);
-                IncrementGridCell(28, 28, 5);
+                IncrementGridCell(29, 29, 5);
 
-                IncrementGridCell(29, 29, 8);
-                IncrementGridCell(30, 30, 13);
-                IncrementGridCell(31, 31, 21);
-                IncrementGridCell(32, 32, 34);
-                IncrementGridCell(33, 33, 55);
+                IncrementGridCell(30, 30, 8);
+                IncrementGridCell(31, 31, 13);
+                IncrementGridCell(32, 32, 21);
+                IncrementGridCell(33, 33, 34);
+                IncrementGridCell(34, 34, 55);
 
                 stopwatch.Stop();
 
