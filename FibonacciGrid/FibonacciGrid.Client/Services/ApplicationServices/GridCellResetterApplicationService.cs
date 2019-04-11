@@ -11,7 +11,7 @@ namespace FibonacciGrid.Client.Services.ApplicationServices
     {
         public event Action OnGridCellsReset;
 
-        public async Task ResetGridCells(List<GridCell> sequenceCells)
+        public async Task ResetGridCells(GridCell[] sequenceCells)
         {
             await Task.Run(() =>
             {
@@ -29,10 +29,12 @@ namespace FibonacciGrid.Client.Services.ApplicationServices
             Thread.Sleep(1000);
         }
 
-        private static void ResetGridValues(List<GridCell> sequenceCells)
+        private static void ResetGridValues(IEnumerable<GridCell> sequenceCells)
         {
-            sequenceCells.ForEach(gridCell =>
-                gridCell.ResetValue());
+            foreach (var gridCell in sequenceCells)
+            {
+                gridCell.ResetValue();
+            }
         }
     }
 }

@@ -49,13 +49,15 @@ namespace FibonacciGrid.Client.Services.ApplicationServices
             await ResetFibonacciSequences(sequenceCells);
         }
 
-        private static void HighlightFibonacciSequences(List<GridCell> sequenceCells)
+        private static void HighlightFibonacciSequences(IEnumerable<GridCell> sequenceCells)
         {
-            sequenceCells.ForEach(gridCell =>
-                gridCell.SetAsSequentialFibonacci());
+            foreach (var gridCell in sequenceCells)
+            {
+                gridCell.SetAsSequentialFibonacci();
+            }
         }
 
-        private async Task ResetFibonacciSequences(List<GridCell> sequenceCells)
+        private async Task ResetFibonacciSequences(GridCell[] sequenceCells)
         {
            await _gridCellResetterApplicationService.ResetGridCells(sequenceCells);
         }

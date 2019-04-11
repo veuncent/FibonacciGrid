@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using FibonacciGrid.Client.Models;
+﻿using FibonacciGrid.Client.Models;
 using FibonacciGrid.Client.Services.ApplicationServices;
 using FibonacciGrid.Client.Services.DomainServices;
 using Moq;
@@ -13,31 +12,40 @@ namespace FibonacciGrid.Client.Tests.Services.ApplicationServices
         public void Given_GridCells_When_ResettingGridCells_Expect_ResetValues()
         {
             // Arrange
+            var gridCellResetApplicationService = new GridCellResetterApplicationService();
+
             var fibonacciCheckerService = Mock.Of<IFibonacciCheckerService>();
             Mock.Get(fibonacciCheckerService).Setup(service => service.IsFibonacci(It.IsAny<int>())).Returns(true);
 
-            var gridCells = new List<GridCell>
+            var gridCells = new []
             {
                 new GridCell(fibonacciCheckerService), new GridCell(fibonacciCheckerService)
             };
 
-            gridCells.ForEach(gridCell => gridCell.IncrementGridCellValue(1));
-            gridCells.ForEach(gridCell => gridCell.SetAsSequentialFibonacci());
-
-            var gridCellResetApplicationService = new GridCellResetterApplicationService();
+            foreach (var gridCell in gridCells)
+            {
+                gridCell.IncrementGridCellValue(1);
+                gridCell.SetAsSequentialFibonacci();
+            }
 
             // Assert
-            gridCells.ForEach(gridCell => Assert.AreEqual(1 , gridCell.Value));
-            gridCells.ForEach(gridCell => Assert.IsTrue(gridCell.IsFibonacci));
-            gridCells.ForEach(gridCell => Assert.IsTrue(gridCell.IsSequentialFibonacci));
+            foreach (var gridCell in gridCells)
+            {
+                Assert.AreEqual(1, gridCell.Value);
+                Assert.IsTrue(gridCell.IsFibonacci);
+                Assert.IsTrue(gridCell.IsSequentialFibonacci);
+            }
 
             // Act
             gridCellResetApplicationService.ResetGridCells(gridCells).Wait();
-        
+
             // Assert
-            gridCells.ForEach(gridCell => Assert.AreEqual(0 , gridCell.Value));
-            gridCells.ForEach(gridCell => Assert.IsFalse(gridCell.IsFibonacci));
-            gridCells.ForEach(gridCell => Assert.IsFalse(gridCell.IsSequentialFibonacci));
+            foreach (var gridCell in gridCells)
+            {
+                Assert.AreEqual(0, gridCell.Value);
+                Assert.IsFalse(gridCell.IsFibonacci);
+                Assert.IsFalse(gridCell.IsSequentialFibonacci);
+            }
         }
     }
 }

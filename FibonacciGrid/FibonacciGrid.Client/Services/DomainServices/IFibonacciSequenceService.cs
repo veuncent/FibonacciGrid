@@ -5,6 +5,6 @@ namespace FibonacciGrid.Client.Services.DomainServices
 {
     public interface IFibonacciSequenceService
     {
-        List<GridCell> FindFibonacciSequences(List<List<GridCell>> groupedFibonacciCells);
+        GridCell[] FindFibonacciSequences(List<List<GridCell>> groupedFibonacciCells);
     }
 }

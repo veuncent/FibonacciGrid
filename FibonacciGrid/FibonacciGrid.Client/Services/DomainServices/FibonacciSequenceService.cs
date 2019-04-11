@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FibonacciGrid.Client.Models;
 
 namespace FibonacciGrid.Client.Services.DomainServices
@@ -15,19 +17,19 @@ namespace FibonacciGrid.Client.Services.DomainServices
         /// </summary>
         /// <param name="groupedFibonacciCells">Each list in this list contains a group of neighboring Fibonacci cells</param>
         /// <returns>Returns a list with all Fibonacci cells that are part of a sequence</returns>
-        public List<GridCell> FindFibonacciSequences(List<List<GridCell>> groupedFibonacciCells)
+        public GridCell[] FindFibonacciSequences(List<List<GridCell>> groupedFibonacciCells)
         {
-            var sequentialFibonacciCells = new List<GridCell>();
-            foreach (var fibonacciCellGroup in groupedFibonacciCells)
+            var sequentialFibonacciCells = new ConcurrentBag<GridCell>();
+            Parallel.ForEach(groupedFibonacciCells, fibonacciCellGroup =>
             {
                 var sequentialCells = FindFibonacciSequence(fibonacciCellGroup);
                 if (sequentialCells.Count > 0)
                 {
-                    sequentialFibonacciCells.AddRange(sequentialCells);
+                    sequentialCells.ForEach(cell => sequentialFibonacciCells.Add(cell));
                 }
-            }
+            });
 
-            return sequentialFibonacciCells;
+            return sequentialFibonacciCells.ToArray();
         }
 
         private List<GridCell> FindFibonacciSequence(IReadOnlyCollection<GridCell> fibonacciCellGroup)

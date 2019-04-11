@@ -20,7 +20,7 @@ namespace FibonacciGrid.Client.Tests.Services.ApplicationServices
             var gridCellResetApplicationService = Mock.Of<IGridCellResetterApplicationService>();
             var grid = Mock.Of<IGrid>();
 
-            var sequenceGridCells = new List<GridCell>{ new GridCell(fibonacciCheckerService), new GridCell(fibonacciCheckerService) };
+            var sequenceGridCells = new [] { new GridCell(fibonacciCheckerService), new GridCell(fibonacciCheckerService) };
             Mock.Get(fibonacciSequenceService).Setup(sequenceChecker => sequenceChecker
                     .FindFibonacciSequences(It.IsAny<List<List<GridCell>>>()))
                 .Returns(sequenceGridCells);
@@ -54,7 +54,7 @@ namespace FibonacciGrid.Client.Tests.Services.ApplicationServices
             var grid = Mock.Of<IGrid>();
 
             var fibonacciSequenceService = Mock.Of<IFibonacciSequenceService>();
-            var sequenceGridCells = new List<GridCell> { new GridCell(fibonacciCheckerService), new GridCell(fibonacciCheckerService) };
+            var sequenceGridCells = new [] { new GridCell(fibonacciCheckerService), new GridCell(fibonacciCheckerService) };
             Mock.Get(fibonacciSequenceService).Setup(sequenceChecker => sequenceChecker
                     .FindFibonacciSequences(It.IsAny<List<List<GridCell>>>()))
                 .Returns(sequenceGridCells);
