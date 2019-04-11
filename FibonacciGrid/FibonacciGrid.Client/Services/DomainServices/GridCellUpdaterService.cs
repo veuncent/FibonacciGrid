@@ -23,7 +23,7 @@ namespace FibonacciGrid.Client.Services.DomainServices
             return fibonacciCells;
         }
 
-        private static void IncrementVerticalCells(IGrid grid, int increment, int columnIndex, List<Tuple<int, int>> fibonacciCells)
+        private static void IncrementVerticalCells(IGrid grid, int increment, int columnIndex, ICollection<Tuple<int, int>> fibonacciCells)
         {
             for (var row = 0; row < grid.FibonacciGrid.GetLength(0); row++)
             {
